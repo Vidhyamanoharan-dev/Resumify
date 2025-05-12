@@ -1,0 +1,54 @@
+$input-bg: #c8f1ff;
+$btn-bg: #00eaff;
+$text-color: #000;
+$link-color: blue;
+$container-bg: #e6e6e6;
+
+.auth-container {
+  background: $container-bg;
+  width: 300px;
+  margin: 40px auto;
+  padding: 25px;
+  border-radius: 10px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+
+  h2 {
+    margin-bottom: 20px;
+    color: $text-color;
+  }
+
+  input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    background: $input-bg;
+    border: none;
+    border-radius: 8px;
+    font-size: 12px;
+  }
+
+  button {
+    width: 90%;
+    padding: 10px;
+    margin: 15px 0;
+    background: $btn-bg;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  p {
+    font-size: 12px;
+    margin-top: 10px;
+  }
+
+  .link {
+    color: $link-color;
+    font-size: 11px;
+    text-decoration: none;
+    margin-left: 4px;
+  }
+}
