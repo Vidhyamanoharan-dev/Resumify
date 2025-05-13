@@ -1,1 +1,19 @@
-<p>uploadresume works!</p>
+<!-- uploadresume.component.html -->
+<div class="upload-container" (drop)="onFileDropped($event)" (dragover)="onDragOver($event)">
+  <h2 class="title">How do you want to upload your resume?</h2>
+  <p class="subtitle">Drag & Drop or upload your Resume</p>
+
+  <div class="upload-box">
+    <label class="file-label" for="fileInput">
+      <img src="assets/upload-icon.png" alt="upload icon" class="upload-icon" />
+      <div class="upload-text">Drag and drop a file here</div>
+    </label>
+    <input type="file" #fileInput id="fileInput" hidden (change)="onFileSelected($event)" />
+    <button class="upload-btn" (click)="triggerFileInput()">Upload</button>
+  </div>
+    
+</div>
+  <div *ngIf="alertMessage" class="custom-alert">
+  <span class="alert-text">{{ alertMessage }}</span>
+  <button class="close-btn" (click)="closeAlert()">×</button>
+</div>
