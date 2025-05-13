@@ -1,0 +1,16 @@
+.upload-container {
+  background-color: var(--light-mint);
+  border: 1px solid var(--deep-green);
+  padding: 2rem;
+  border-radius: 10px;
+  color: var(--dark-bg);
+}
+
+button {
+  background-color: var(--green-accent);
+  color: white;
+
+  &:hover {
+    background-color: var(--deep-green);
+  }
+}
