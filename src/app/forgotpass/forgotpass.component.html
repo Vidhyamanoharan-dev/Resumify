@@ -1,6 +1,34 @@
-<div class="auth-container">
-  <h2>Forgot password</h2>
-  <input type="email" placeholder="Enter your registered email address" />
-  <button>Send Reset Link</button>
-  <p>Remember your password?<a class="link" href="/login">Login</a></p>
+<div class="container">
+  <div class="left-section">
+
+
+    <img src="assets/images/il_340x270.4240695166_3kzk.jpg" alt="Resume" class="resume-img" />
+
+
+
+
+  </div>
+
+  <div class="right-section">
+    <h2>Reset Your Password</h2>
+    <form [formGroup]="forgotPasswordForm" (ngSubmit)="onSubmit()">
+      <label>Email</label>
+      <input
+        type="email"
+        formControlName="email"
+        placeholder="Enter your registered email"
+      />
+      <div class="error" *ngIf="email?.touched && email?.invalid">
+        <small *ngIf="email?.errors?.['required']">Email is required</small>
+        <small *ngIf="email?.errors?.['email']">Enter a valid email</small>
+      </div>
+
+      <button type="submit" [disabled]="forgotPasswordForm.invalid">Send Reset Link</button>
+    </form>
+
+    <p>
+      Remember your password?
+      <a href="/login">Go to Login</a>
+    </p>
+  </div>
 </div>
