@@ -4,7 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './Auth/login/login.component';
 import { RegisterComponent } from './Auth/register/register.component';
 import { UploadresumeComponent } from './uploadresume/uploadresume.component';
-import { ParsedresumeComponent } from './home/parsedresume/parsedresume.component';
+import { ParsedresumeComponent } from './parsedresume/parsedresume.component';
 import { ContactusComponent } from './home/contactus/contactus.component';
 import { AboutComponent } from './home/about/about.component';
 import { ForgotpassComponent } from './Auth/forgotpass/forgotpass.component';
@@ -19,13 +19,13 @@ export const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'forgot-password', component: ForgotpassComponent },
 
-  // Move this BEFORE '**'
+  // Lazy loaded
   {
     path: 'features',
-    loadComponent: () => import('./home/features/features.component').then(m => m.FeaturesComponent)
+    loadComponent: () =>
+      import('./home/features/features.component').then(m => m.FeaturesComponent),
   },
 
-  // Keep this at the end
-  { path: '**', redirectTo: '' }
+  // Always last
+  { path: '**', redirectTo: '' },
 ];
-

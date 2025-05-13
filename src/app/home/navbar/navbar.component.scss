@@ -1,31 +1,42 @@
-.spacer {
-  flex: 1 1 auto;
-}
-a {
-  color: var(--light-mint);
-  text-decoration: none;
-  &:hover {
-    color: var(--green-accent);
+.resumify-navbar {
+  background-color: #181818; // Medium Gray
+  color: white;
+  padding: 0 2rem;
+width: 100%;
+
+  .logo {
+    font-size: 2.0rem;
+    font-weight: bold;
+    color: #3cb662 // Green Accent
   }
-}
-mat-toolbar {
-  background-color: var(--medium-gray);
-  color: white;
-}
-mat-toolbar-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-mat-toolbar-row mat-icon-button {
-  color: white;
-}
-mat-toolbar-row mat-icon-button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-mat-toolbar-row mat-icon-button:focus {
-  outline: none;
-}
-mat-toolbar-row mat-icon-button:active {
-  background-color: rgba(255, 255, 255, 0.2);
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+    margin: 0 0.5rem;
+    font-weight: 500;
+
+    &:hover {
+      color: #3a6d54; // Light Mint
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    &.mat-button {
+      line-height: 36px;
+    }
+
+    &.upload-btn {
+      background-color: #3cb662; // Green Accent
+      color: white;
+      border-radius: 4px;
+      &:hover {
+        background-color: #3a6d54; // Deep Green
+        color: white;
+      }
+    }
+  }
 }
