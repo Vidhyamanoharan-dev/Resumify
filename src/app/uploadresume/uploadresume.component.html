@@ -1,19 +1,16 @@
-<!-- uploadresume.component.html -->
-<div class="upload-container" (drop)="onFileDropped($event)" (dragover)="onDragOver($event)">
-  <h2 class="title">How do you want to upload your resume?</h2>
-  <p class="subtitle">Drag & Drop or upload your Resume</p>
-
+<div class="upload-container" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
   <div class="upload-box">
-    <label class="file-label" for="fileInput">
-      <img src="assets/upload-icon.png" alt="upload icon" class="upload-icon" />
-      <div class="upload-text">Drag and drop a file here</div>
-    </label>
-    <input type="file" #fileInput id="fileInput" hidden (change)="onFileSelected($event)" />
-    <button class="upload-btn" (click)="triggerFileInput()">Upload</button>
+    <h2>Upload Your Files</h2>
+    <div class="icon">
+      <img src="assets/images/Icon.png" alt="Upload Icon" />
+    </div>
+    <p class="drop-text">Drag and drop a file here</p>
+
+    <input type="file" accept=".pdf" id="fileInput" (change)="onFileSelected($event)" hidden>
+    <label for="fileInput" class="upload-button">Upload</label>
+
+    <div *ngIf="errorMessage" class="error-box">
+      {{ errorMessage }}
+    </div>
   </div>
-    
-</div>
-  <div *ngIf="alertMessage" class="custom-alert">
-  <span class="alert-text">{{ alertMessage }}</span>
-  <button class="close-btn" (click)="closeAlert()">×</button>
 </div>

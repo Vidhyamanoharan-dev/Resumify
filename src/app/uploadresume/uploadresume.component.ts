@@ -1,60 +1,57 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-uploadresume',
-  imports: [],
+  selector: 'app-upload',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './uploadresume.component.html',
-  styleUrl: './uploadresume.component.scss'
+  styleUrls: ['./uploadresume.component.scss']
 })
-export class UploadresumeComponent {
+export class UploadResumeComponent {
 
-   uploadedFileName: string | null = null;
-     alertMessage: string | null = null;
+  file: File | null = null;
+  errorMessage: string = '';
 
-  @ViewChild('fileInput') fileInputRef!: ElementRef<HTMLInputElement>;
+  onFileSelected(event: Event) {
+    const target = event.target as HTMLInputElement;
+    const file = target.files?.[0];
 
+    if (file) {
+      this.validateAndSetFile(file);
+    }
+  }
 
-  onFileDropped(event: DragEvent): void {
+  onDrop(event: DragEvent) {
     event.preventDefault();
-    if (event.dataTransfer && event.dataTransfer.files.length > 0) {
+    if (event.dataTransfer?.files?.length) {
       const file = event.dataTransfer.files[0];
-      this.handleFile(file);
+      this.validateAndSetFile(file);
     }
   }
 
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      const file = input.files[0];
-      this.handleFile(file);
+  validateAndSetFile(file: File) {
+    if (file.type !== 'application/pdf') {
+      this.file = null;
+      this.errorMessage = 'Only PDF files are allowed!';
+    } else {
+      this.file = file;
+      this.errorMessage = '';
     }
   }
 
-handleFile(file: File): void {
-  const isPDF = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
-
-  if (!isPDF) {
-    alert('Only PDF files are allowed. Please upload a .pdf file.');
-    this.uploadedFileName = null;
-    return;
-  }
-
-  this.alertMessage = null;
-  this.uploadedFileName = file.name;
-  console.log('Valid PDF uploaded:', file);
-  // You can now upload this file to a server or whatever you want
-}
-
-  onDragOver(event: DragEvent): void {
+  onDragOver(event: DragEvent) {
     event.preventDefault();
   }
 
-    triggerFileInput(): void {
-    this.fileInputRef.nativeElement.click();
-  }
-  closeAlert(): void {
-    this.alertMessage = null;
-  }
+  uploadFile() {
+    if (!this.file) {
+      this.errorMessage = 'Please upload a PDF file.';
+      return;
+    }
 
-
+    // Upload logic here
+    alert('File uploaded: ' + this.file.name);
+  }
 }
