@@ -1,16 +1,72 @@
 .upload-container {
-  background-color: var(--light-mint);
-  border: 1px solid var(--deep-green);
+  text-align: center;
   padding: 2rem;
-  border-radius: 10px;
-  color: var(--dark-bg);
+  background-color: #111;
+  color: #fff;
+  min-height: 100vh;
+
+  h2 {
+    color: #5be584;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: #080808;
+    margin-bottom: 2rem;
+  }
 }
 
-button {
-  background-color: var(--green-accent);
-  color: white;
 
-  &:hover {
-    background-color: var(--deep-green);
+.upload-box {
+  background: rgb(255, 255, 255);
+  border-radius: 1rem;
+  padding: 2rem;
+  width: 320px;
+  margin: 0 auto;
+  border: 2px dashed #5be584;
+  transition: background 0.3s;
+  cursor: pointer;
+
+  &.drag-over {
+    background: #2a2a2a;
+  }
+
+  .upload-label {
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+
+.upload-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  img {
+    width: 50px; // adjust as needed
+    height: 50px;
+    object-fit: contain;
+  }
+}
+
+  .drag-text {
+    color: #5be584;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .browse-btn {
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    background: #5be584;
+    color: #000;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background 0.3s;
+
+    &:hover {
+      background: #47cc6b;
+    }
   }
 }

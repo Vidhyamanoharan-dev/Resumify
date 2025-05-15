@@ -1,16 +1,47 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
-  selector: 'app-uploadresume',
-    standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule ],
-
+  selector: 'app-upload',
+  standalone: true,
+  imports: [CommonModule,FormsModule],
   templateUrl: './uploadresume.component.html',
-  styleUrl: './uploadresume.component.scss'
+  styleUrls: ['./uploadresume.component.scss']
 })
 export class UploadresumeComponent {
+selectedFile: File | null = null;
+  dragOver = false;
 
+  constructor(private router: Router) {}
+
+  onFileDropped(event: DragEvent) {
+    event.preventDefault();
+    this.dragOver = false;
+    const file = event.dataTransfer?.files?.[0];
+    if (file && file.type === 'application/pdf') {
+      this.selectedFile = file;
+      this.router.navigate(['/selectedfiles'], { state: { fileName: file.name } });
+    }
+  }
+
+  onBrowseFile(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (file && file.type === 'application/pdf') {
+      this.selectedFile = file;
+      this.router.navigate(['/selectedfiles'], { state: { fileName: file.name } });
+    }
+  }
+
+  allowDrop(event: DragEvent) {
+    event.preventDefault();
+    this.dragOver = true;
+  }
+
+  clearDragOver() {
+    this.dragOver = false;
+  }
 }
