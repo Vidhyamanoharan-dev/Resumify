@@ -18,18 +18,16 @@ export const routes: Routes = [
   { path: 'upload', component: UploadresumeComponent },
   { path: 'selectedfiles', component: SelectedFilesComponent },
   { path: 'enhance', component: ResumeEnhancingComponent },
-{path: 'parsedresumes', component: ParsedresumeComponent},
+  { path: 'parsedresumes', component: ParsedresumeComponent },
   { path: 'contact', component: ContactusComponent },
   { path: 'about', component: AboutComponent },
   { path: 'forgot-password', component: ForgotpassComponent },
-
-  // Lazy loaded
   {
     path: 'features',
     loadComponent: () =>
-      import('./home/features/features.component').then(m => m.FeaturesComponent),
+      import('./home/features/features.component').then(
+        (m) => m.FeaturesComponent
+      ),
   },
-
-  // Always last
   { path: '**', redirectTo: '' },
 ];

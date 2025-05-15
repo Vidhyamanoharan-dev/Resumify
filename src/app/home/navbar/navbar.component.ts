@@ -13,7 +13,7 @@ import { MatIconModule } from '@angular/material/icon'; // Add this import
     RouterModule,
     MatToolbarModule,
     MatButtonModule,
-    MatIconModule // Add this to imports array
+    MatIconModule
   ],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
