@@ -2,20 +2,23 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-
+import { ResumeTransferService } from '../services/resume-transfer.service'; // 👈 import
 
 @Component({
   selector: 'app-upload',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './uploadresume.component.html',
   styleUrls: ['./uploadresume.component.scss']
 })
-export class UploadresumeComponent {
-selectedFile: File | null = null;
+export class BrowseResumeComponent {
+  selectedFile: File | null = null;
   dragOver = false;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private resumeTransferService: ResumeTransferService // 👈 inject
+  ) {}
 
   onFileDropped(event: DragEvent) {
     event.preventDefault();
@@ -23,6 +26,7 @@ selectedFile: File | null = null;
     const file = event.dataTransfer?.files?.[0];
     if (file && file.type === 'application/pdf') {
       this.selectedFile = file;
+      this.resumeTransferService.setFile(file); // 👈 save file in service
       this.router.navigate(['/selectedfiles'], { state: { fileName: file.name } });
     }
   }
@@ -32,7 +36,9 @@ selectedFile: File | null = null;
     const file = input.files?.[0];
     if (file && file.type === 'application/pdf') {
       this.selectedFile = file;
-      this.router.navigate(['/selectedfiles'], { state: { fileName: file.name } });
+      this.resumeTransferService.setFile(file); 
+      console.log(file);// 👈 save file in service
+      this.router.navigate(['/selectedfiles'], { state: { fileName: file.name ,data:file } });
     }
   }
 

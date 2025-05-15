@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UploadresumeComponent } from './uploadresume.component';
+import { BrowseResumeComponent } from './browseresume.component';
 
-describe('UploadresumeComponent', () => {
-  let component: UploadresumeComponent;
-  let fixture: ComponentFixture<UploadresumeComponent>;
+describe('BrowseResumeComponent', () => {
+  let component: BrowseResumeComponent;
+  let fixture: ComponentFixture<BrowseResumeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UploadresumeComponent]
+      imports: [BrowseResumeComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(UploadresumeComponent);
+    fixture = TestBed.createComponent(BrowseResumeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
