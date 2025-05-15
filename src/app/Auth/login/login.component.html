@@ -1,1 +1,47 @@
-<p>login works!</p>
+<div class="container">
+  <div class="left-section">
+    <div class="up">
+      <img src="assets/images/Green and yellow template.jpeg" alt="Background" class="blob-img" />
+    </div>
+    <div class="down">
+      <img src="assets/images/il_340x270.4240695166_3kzk.jpg" alt="Resume" class="resume-img" />
+    </div>
+  </div>
+
+  <div class="right-section">
+<div class="form">
+  <h2>Login in Your Account</h2>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <label>Email</label>
+    <input type="email" formControlName="email" placeholder="Enter your Email here" />
+    <div class="error" *ngIf="email?.touched && email?.invalid">
+      <small *ngIf="email?.errors?.['required']">Email is required</small>
+      <small *ngIf="email?.errors?.['email']">Invalid email format</small>
+    </div>
+
+    <label>Password</label>
+    <input type="password" formControlName="password" placeholder="Enter your Password here" />
+    <div class="error" *ngIf="password?.touched && password?.invalid">
+      <small *ngIf="password?.errors?.['required']">Password is required</small>
+      <small *ngIf="password?.errors?.['minlength']">Minimum 6 characters required</small>
+    </div>
+
+    <button id="submit" type="submit">Login</button>
+  </form>
+</div>
+<p>Don't have an account?<a href="/register">SignUp</a></p>
+
+    <p>Forgot your password? <a href="/forgotpass">Reset Password</a></p>
+    <div class="social-buttons">
+      <button class="go-btn">
+        <img src="assets/icons/icons8-google.svg" alt="Google" />
+        Sign up with Google
+      </button>
+      <button class="gi-btn">
+        <img src="assets/icons/icons8-github.svg" alt="GitHub" />
+        Sign up with GitHub
+      </button>
+    </div>
+  </div>
+
+</div>

@@ -6,12 +6,8 @@ import { provideClientHydration, withEventReplay } from '@angular/platform-brows
 import { provideImgixLoader } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
-  providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }),
-    provideImgixLoader('https://my.base.url/'),
-    provideRouter(routes),
-    provideClientHydration(withEventReplay())
-  ]
+
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideClientHydration(withEventReplay()),provideImgixLoader('https://my.base.url/'),]
 };
 
 
