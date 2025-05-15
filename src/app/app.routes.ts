@@ -1,19 +1,21 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './Auth/login/login.component';
 import { RegisterComponent } from './Auth/register/register.component';
 import { ParsedresumeComponent } from './parsedresume/parsedresume.component';
 import { ContactusComponent } from './home/contactus/contactus.component';
 import { AboutComponent } from './home/about/about.component';
 import { ForgotpassComponent } from './Auth/forgotpass/forgotpass.component';
-import { UploadResumeComponent } from './uploadresume/uploadresume.component';
+import { BrowseResumeComponent } from './uploadresume/uploadresume.component';
+import { SelectedFilesComponent } from './selectedfiles/selectedfiles.component';
+import { HomeComponent } from './home/home.component';
+import { ResumeEnhancingComponent } from './resume-enhancing/resume-enhancing.component';
 
 export const routes: Routes = [
-   { path: '', component: UploadResumeComponent },
+  { path: '', component: BrowseResumeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'upload', component: UploadResumeComponent },
-  { path: 'parsed', component: ParsedresumeComponent },
+  { path: 'selectedfiles', component: SelectedFilesComponent },
+  { path: 'parsedresumes', component: ParsedresumeComponent },
   { path: 'contact', component: ContactusComponent },
   { path: 'about', component: AboutComponent },
   { path: 'forgot-password', component: ForgotpassComponent },

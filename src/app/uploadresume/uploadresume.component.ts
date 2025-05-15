@@ -1,57 +1,47 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-upload',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule,FormsModule],
   templateUrl: './uploadresume.component.html',
   styleUrls: ['./uploadresume.component.scss']
 })
-export class UploadResumeComponent {
+export class BrowseResumeComponent {
+  selectedFile: File | null = null;
+  dragOver = false;
 
-  file: File | null = null;
-  errorMessage: string = '';
+  constructor(private router: Router) {}
 
-  onFileSelected(event: Event) {
-    const target = event.target as HTMLInputElement;
-    const file = target.files?.[0];
-
-    if (file) {
-      this.validateAndSetFile(file);
-    }
-  }
-
-  onDrop(event: DragEvent) {
+  onFileDropped(event: DragEvent) {
     event.preventDefault();
-    if (event.dataTransfer?.files?.length) {
-      const file = event.dataTransfer.files[0];
-      this.validateAndSetFile(file);
+    this.dragOver = false;
+    const file = event.dataTransfer?.files?.[0];
+    if (file && file.type === 'application/pdf') {
+      this.selectedFile = file;
+      this.router.navigate(['/selectedfiles'], { state: { fileName: file.name } });
     }
   }
 
-  validateAndSetFile(file: File) {
-    if (file.type !== 'application/pdf') {
-      this.file = null;
-      this.errorMessage = 'Only PDF files are allowed!';
-    } else {
-      this.file = file;
-      this.errorMessage = '';
+  onBrowseFile(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (file && file.type === 'application/pdf') {
+      this.selectedFile = file;
+      this.router.navigate(['/selectedfiles'], { state: { fileName: file.name } });
     }
   }
 
-  onDragOver(event: DragEvent) {
+  allowDrop(event: DragEvent) {
     event.preventDefault();
+    this.dragOver = true;
   }
 
-  uploadFile() {
-    if (!this.file) {
-      this.errorMessage = 'Please upload a PDF file.';
-      return;
-    }
-
-    // Upload logic here
-    alert('File uploaded: ' + this.file.name);
+  clearDragOver() {
+    this.dragOver = false;
   }
 }

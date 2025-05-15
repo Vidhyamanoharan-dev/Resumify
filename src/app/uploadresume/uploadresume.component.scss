@@ -1,61 +1,72 @@
 .upload-container {
+  text-align: center;
+  padding: 2rem;
+  background-color: #111;
+  color: #fff;
+  min-height: 100vh;
+
+  h2 {
+    color: #5be584;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: #080808;
+    margin-bottom: 2rem;
+  }
+}
+
+
+.upload-box {
+  background: rgb(255, 255, 255);
+  border-radius: 1rem;
+  padding: 2rem;
+  width: 320px;
+  margin: 0 auto;
+  border: 2px dashed #5be584;
+  transition: background 0.3s;
+  cursor: pointer;
+
+  &.drag-over {
+    background: #2a2a2a;
+  }
+
+  .upload-label {
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+
+.upload-icon {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: #2f6842;
+  margin-bottom: 1rem;
+
+  img {
+    width: 50px; // adjust as needed
+    height: 50px;
+    object-fit: contain;
+  }
 }
 
-.upload-box {
-  background: #fff;
-  padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  text-align: center;
-  width: 300px;
-  height: 300px;
-
-  h2 {
-    margin-bottom: 20px;
-    font-size: 20px;
+  .drag-text {
+    color: #5be584;
     font-weight: 500;
-    color: #000;
+    margin-bottom: 1rem;
   }
 
-  .icon img {
-    width: 50px;
-    height: 50px;
-    margin-bottom: 10px;
-  }
-
-  .drop-text {
-    color: #27ae60;
-    font-weight: 500;
-    margin-bottom: 20px;
-  }
-
-  .upload-button {
+  .browse-btn {
     display: inline-block;
-    background-color: #27ae60;
-    color: white;
-    padding: 10px 30px;
-    border-radius: 6px;
-    cursor: pointer;
+    padding: 0.5rem 1.5rem;
+    background: #5be584;
+    color: #000;
     font-weight: 600;
-    transition: background-color 0.3s ease;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background 0.3s;
 
     &:hover {
-      background-color: #219150;
+      background: #47cc6b;
     }
-  }
-
-  .error-box {
-    margin-top: 15px;
-    background-color: #f8d7da;
-    color: #a94442;
-    padding: 10px;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 500;
   }
 }

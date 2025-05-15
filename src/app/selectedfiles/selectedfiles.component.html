@@ -1,1 +1,19 @@
-<p>selectedfiles works!</p>
+<div class="selected-container">
+  <h2>Ready For Upload!</h2>
+
+  <div class="file-box">
+    <img src="https://img.icons8.com/color/96/resume.png" alt="Resume Icon" />
+    <p class="file-name">File Selected: “{{ fileName }}”</p>
+    <p class="ready-text">We are all set! Let’s parse Resume</p>
+
+    <label class="select-btn">
+      <input type="file" accept="application/pdf" (change)="onSelectNewFile($event)" hidden />
+      Select new file
+    </label>
+  </div>
+
+  <div class="action-buttons">
+    <button class="back-btn" (click)="goBack()">Back</button>
+    <button class="continue-btn" (click)="continue()">Continue</button>
+  </div>
+</div>
