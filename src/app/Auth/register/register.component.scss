@@ -20,6 +20,7 @@
     width: 350px;
     height:300px;
     border-radius: 100px; 
+    border-radius: 100px;
     max-width: 500px;
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
   }
@@ -74,6 +75,16 @@ input {
 input:focus {
   outline: none;
   border: 1px solid #4caf50; 
+  background-color: #3a3a3a;
+  color: #fff;
+  height: 20px;
+}
+// input::placeholder {
+//    color: #ccc;
+// }
+input:focus {
+  outline: none;
+  border: 1px solid #4caf50;
   background-color: #444;
 }
 small{
@@ -156,3 +167,6 @@ small{
  font-size: 14px;
 }
 
+.social-buttons img:hover {
+  transform: scale(1.1);
+}

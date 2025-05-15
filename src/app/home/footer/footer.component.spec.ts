@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ParsedresumeComponent } from './parsedresume.component';
+import { FooterComponent } from './footer.component';
 
-describe('ParsedresumeComponent', () => {
-  let component: ParsedresumeComponent;
-  let fixture: ComponentFixture<ParsedresumeComponent>;
+describe('FooterComponent', () => {
+  let component: FooterComponent;
+  let fixture: ComponentFixture<FooterComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ParsedresumeComponent]
+      imports: [FooterComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ParsedresumeComponent);
+    fixture = TestBed.createComponent(FooterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

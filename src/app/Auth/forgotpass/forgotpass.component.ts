@@ -9,7 +9,12 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   templateUrl: './forgotpass.component.html',
   styleUrls: ['./forgotpass.component.scss'],
 })
-export class ForgotPasswordComponent {
+
+
+
+
+export class ForgotpassComponent {
+
   forgotPasswordForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
@@ -27,6 +32,7 @@ export class ForgotPasswordComponent {
       const email = this.forgotPasswordForm.value.email;
       console.log('Reset link sent to:', email);
       // TODO: Call backend API here
+
     }
   }
 }

@@ -1,19 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SelectedFilesComponent } from './selectedfiles.component';
 
+import { ParsedResumesComponent } from './parsed-resumes.component';
 
-
-describe('SelectedfilesComponent', () => {
-  let component: SelectedFilesComponent;
-  let fixture: ComponentFixture<SelectedFilesComponent>;
+describe('ParsedResumesComponent', () => {
+  let component: ParsedResumesComponent;
+  let fixture: ComponentFixture<ParsedResumesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SelectedFilesComponent]
+      imports: [ParsedResumesComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SelectedFilesComponent);
+    fixture = TestBed.createComponent(ParsedResumesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

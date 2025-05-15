@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 
 
@@ -16,7 +17,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
 
-  constructor(private fb: FormBuilder,private router: Router) {}
+  constructor(private fb: FormBuilder,private router: Router,private authService: AuthService) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -25,13 +26,19 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  onSubmit(): void {
-    if (this.loginForm.valid) {
-      console.log('Form Data:', this.loginForm.value);
-      this.router.navigate(['']);
-      // Proceed with login API call
-    } else {
-      this.loginForm.markAllAsTouched(); // Show all errors
+    onSubmit(): void {
+        const credentials = this.loginForm.value;
+
+      if (this.loginForm.valid) {
+
+this.authService.login(credentials).subscribe(response => {
+  console.log('Login successful:', response);
+
+  // Save user ID or full object based on backend response
+  localStorage.setItem('user', JSON.stringify(response));
+  this.router.navigate(['/home']);
+});
+
     }
   }
 
