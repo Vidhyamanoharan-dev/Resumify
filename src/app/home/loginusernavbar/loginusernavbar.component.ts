@@ -19,7 +19,7 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './loginusernavbar.component.html',
   styleUrl: './loginusernavbar.component.scss'
 })
-export class LoginusernavbarComponent implements OnInit {
+export class LoginusernavbarComponent  implements OnInit {
   menuOpen = false;
   isLoggedIn = false;
   username: string | null = null;

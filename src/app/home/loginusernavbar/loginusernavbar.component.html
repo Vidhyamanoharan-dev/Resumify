@@ -15,11 +15,6 @@
   <a mat-button routerLink="/about">About</a>
   <a mat-button routerLink="/contact">Contact</a>
 
-  <ng-container *ngIf="!isLoggedIn">
-    <a mat-button routerLink="/login">Login</a>
-    <a mat-button routerLink="/register">Register</a>
-  </ng-container>
-
   <ng-container *ngIf="isLoggedIn">
     <span class="user-name">Hi, {{ username }}</span>
     <button mat-button (click)="logout()">Logout</button>
@@ -34,11 +29,6 @@
     <a mat-button routerLink="/parsedresumes" (click)="closeMenu()">Parsed Resume</a>
     <a mat-button routerLink="/about" (click)="closeMenu()">About</a>
     <a mat-button routerLink="/contact" (click)="closeMenu()">Contact</a>
-
-   <ng-container *ngIf="!isLoggedIn">
-  <a mat-button routerLink="/login" (click)="closeMenu()">Login</a>
-  <a mat-button routerLink="/register" (click)="closeMenu()">Register</a>
-</ng-container>
 
 <ng-container *ngIf="isLoggedIn">
   <span class="user-name">Hi, {{ username }}</span>
