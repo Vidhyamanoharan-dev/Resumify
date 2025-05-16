@@ -5,8 +5,6 @@ import { LoginComponent } from './Auth/login/login.component';
 import { RegisterComponent } from './Auth/register/register.component';
 import { BrowseResumeComponent } from './browseresume/browseresume.component';
 import { ParsedresumeComponent } from './parsedresume/parsedresume.component';
-import { ContactusComponent } from './home/contactus/contactus.component';
-import { AboutComponent } from './home/about/about.component';
 import { ForgotpassComponent } from './Auth/forgotpass/forgotpass.component';
 import { SelectedFilesComponent } from './selectedfiles/selectedfiles.component';
 import { ResumeEnhancingComponent } from './resume-enhancing/resume-enhancing.component';
@@ -19,15 +17,6 @@ export const routes: Routes = [
   { path: 'selectedfiles', component: SelectedFilesComponent },
   { path: 'enhance', component: ResumeEnhancingComponent },
   { path: 'parsedresumes', component: ParsedresumeComponent },
-  { path: 'contact', component: ContactusComponent },
-  { path: 'about', component: AboutComponent },
   { path: 'forgot-password', component: ForgotpassComponent },
-  {
-    path: 'features',
-    loadComponent: () =>
-      import('./home/features/features.component').then(
-        (m) => m.FeaturesComponent
-      ),
-  },
   { path: '**', redirectTo: '' },
 ];

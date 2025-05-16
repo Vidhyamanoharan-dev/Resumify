@@ -1,23 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-
-
+import { HttpClientModule } from '@angular/common/http'; // ✅ MUST add this for HttpClient injection
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  imports:[ReactiveFormsModule,CommonModule],
-  standalone: true
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule] // ✅ Include HttpClientModule
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
 
-  constructor(private fb: FormBuilder,private router: Router,private authService: AuthService) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -26,19 +28,23 @@ export class LoginComponent implements OnInit {
     });
   }
 
-    onSubmit(): void {
-        const credentials = this.loginForm.value;
+  onSubmit(): void {
+    if (this.loginForm.valid) {
+      const credentials = this.loginForm.value;
 
-      if (this.loginForm.valid) {
+      this.authService.login(credentials).subscribe({
+        next: response => {
+          console.log('Login successful:', response);
 
-this.authService.login(credentials).subscribe(response => {
-  console.log('Login successful:', response);
-
-  // Save user ID or full object based on backend response
-  localStorage.setItem('user', JSON.stringify(response));
-  this.router.navigate(['/home']);
-});
-
+          // Save user data to localStorage
+          localStorage.setItem('user', JSON.stringify(response));
+          this.router.navigate(['/home']);
+        },
+        error: err => {
+          console.error('Login failed:', err);
+          // You can show an error message to the user here
+        }
+      });
     }
   }
 

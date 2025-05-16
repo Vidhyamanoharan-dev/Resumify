@@ -8,8 +8,8 @@ import { ResumeTransferService } from '../services/resume-transfer.service'; // 
   selector: 'app-upload',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './uploadresume.component.html',
-  styleUrls: ['./uploadresume.component.scss']
+  templateUrl: './browseresume.component.html',
+  styleUrls: ['./browseresume.component.scss']
 })
 export class BrowseResumeComponent {
   selectedFile: File | null = null;
@@ -36,7 +36,7 @@ export class BrowseResumeComponent {
     const file = input.files?.[0];
     if (file && file.type === 'application/pdf') {
       this.selectedFile = file;
-      this.resumeTransferService.setFile(file); 
+      this.resumeTransferService.setFile(file);
       console.log(file);// 👈 save file in service
       this.router.navigate(['/selectedfiles'], { state: { fileName: file.name ,data:file } });
     }
@@ -51,3 +51,4 @@ export class BrowseResumeComponent {
     this.dragOver = false;
   }
 }
+

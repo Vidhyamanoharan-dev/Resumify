@@ -14,15 +14,16 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/register`, userData);
   }
 
-  login(credentials: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
-      tap((res: any) => {
-        // Save token or user ID to localStorage
-        localStorage.setItem('userId', res.id);
-        localStorage.setItem('token', res.token);
-      })
-    );
-  }
+login(credentials: any): Observable<any> {
+  return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
+    tap((res: any) => {
+      localStorage.setItem('userId', res.id);
+      localStorage.setItem('token', res.token);
+      localStorage.setItem('username', res.username); // Save name for navbar
+    })
+  );
+}
+
 
   logout(): void {
     localStorage.removeItem('userId');

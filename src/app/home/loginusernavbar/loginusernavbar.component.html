@@ -1,0 +1,49 @@
+<mat-toolbar class="resumify-navbar">
+  <span class="logo">RESUMIFY</span>
+
+  <button mat-icon-button class="menu-button" (click)="toggleMenu()" aria-label="Menu">
+    <mat-icon>{{ menuOpen ? 'close' : 'menu' }}</mat-icon>
+  </button>
+
+  <span class="spacer"></span>
+
+ <!-- Desktop -->
+<div class="desktop-nav">
+  <a mat-button routerLink="/">Home</a>
+  <a mat-button routerLink="/upload">Upload Resume</a>
+  <a mat-button routerLink="/parsedresumes">Parsed Resume</a>
+  <a mat-button routerLink="/about">About</a>
+  <a mat-button routerLink="/contact">Contact</a>
+
+  <ng-container *ngIf="!isLoggedIn">
+    <a mat-button routerLink="/login">Login</a>
+    <a mat-button routerLink="/register">Register</a>
+  </ng-container>
+
+  <ng-container *ngIf="isLoggedIn">
+    <span class="user-name">Hi, {{ username }}</span>
+    <button mat-button (click)="logout()">Logout</button>
+  </ng-container>
+</div>
+
+
+  <!-- Mobile nav -->
+  <div class="mobile-nav" [class.active]="menuOpen">
+    <a mat-button routerLink="/" (click)="closeMenu()">Home</a>
+    <a mat-button routerLink="/upload" class="upload-btn" (click)="closeMenu()">Upload Resume</a>
+    <a mat-button routerLink="/parsedresumes" (click)="closeMenu()">Parsed Resume</a>
+    <a mat-button routerLink="/about" (click)="closeMenu()">About</a>
+    <a mat-button routerLink="/contact" (click)="closeMenu()">Contact</a>
+
+   <ng-container *ngIf="!isLoggedIn">
+  <a mat-button routerLink="/login" (click)="closeMenu()">Login</a>
+  <a mat-button routerLink="/register" (click)="closeMenu()">Register</a>
+</ng-container>
+
+<ng-container *ngIf="isLoggedIn">
+  <span class="user-name">Hi, {{ username }}</span>
+  <button mat-button (click)="logout(); closeMenu()">Logout</button>
+</ng-container>
+
+  </div>
+</mat-toolbar>

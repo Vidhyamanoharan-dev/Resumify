@@ -1,0 +1,152 @@
+.resumify-navbar {
+  background-color: #181818;
+  color: white;
+  padding: 0 1.5rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1000;
+
+  .logo {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #3cb662;
+  }
+
+  .spacer {
+    flex: 1;
+  }
+
+  .menu-button {
+    display: none;
+
+    @media (max-width: 768px) {
+      display: block;
+    }
+  }
+
+  .desktop-nav {
+    display: flex;
+    gap: 1rem;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+
+    a,
+    button {
+      color: white;
+      font-weight: 500;
+      padding: 0.5rem 0.75rem;
+      border-radius: 4px;
+      transition: background-color 0.3s, color 0.3s;
+      background: none;
+      border: none;
+      cursor: pointer;
+
+      &:hover {
+        color: #3a6d54;
+        background-color: rgba(255, 255, 255, 0.08);
+      }
+
+      &.upload-btn {
+        background-color: #3cb662;
+        color: white;
+
+        &:hover {
+          background-color: #2f9d58;
+        }
+      }
+
+      &.auth-btn {
+        background-color: transparent;
+        border: 1.5px solid #3cb662;
+        color: #3cb662;
+
+        &:hover {
+          background-color: #3cb662;
+          color: white;
+        }
+      }
+    }
+
+    .user-name {
+      font-weight: 500;
+      margin-right: 0.5rem;
+      color: #3cb662;
+    }
+  }
+
+  .mobile-nav {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: #181818;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    padding: 0.5rem 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+
+    &.active {
+      display: flex;
+      max-height: 500px;
+      opacity: 1;
+    }
+
+    a,
+    button {
+      padding: 1rem 2rem;
+      color: white;
+      font-weight: 500;
+      text-align: left;
+      background: none;
+      border: none;
+      border-radius: 0;
+      text-align: left;
+      cursor: pointer;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.08);
+      }
+
+      &.upload-btn {
+        background-color: #3cb662;
+
+        &:hover {
+          background-color: #2f9d58;
+        }
+      }
+
+      &.auth-btn {
+        border: 1.5px solid #3cb662;
+        color: #3cb662;
+        margin: 0.25rem 1.5rem;
+        text-align: center;
+        border-radius: 4px;
+        padding: 0.5rem 0;
+
+        &:hover {
+          background-color: #3cb662;
+          color: white;
+        }
+      }
+    }
+
+    .user-name {
+      color: #3cb662;
+      font-weight: 500;
+      padding: 0.5rem 2rem;
+    }
+
+    @media (min-width: 769px) {
+      display: none !important;
+    }
+  }
+}

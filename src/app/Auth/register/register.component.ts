@@ -3,37 +3,38 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { HttpClientModule } from '@angular/common/http'; // ✅ Import this
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule], // ✅ Add here
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder,private router: Router,private auth:AuthService) {
+  constructor(private fb: FormBuilder, private router: Router, private auth: AuthService) {
     this.registerForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
-    }); 
+    });
   }
 
   onSubmit(): void {
-   if (this.registerForm.valid) {
-    this.auth.register(this.registerForm.value).subscribe({
-      next: res => {
-        this.router.navigate(['/login']);
-      },
-      error: err => {
-        console.error('Registration failed', err);
-      }
-    });
+    if (this.registerForm.valid) {
+      this.auth.register(this.registerForm.value).subscribe({
+        next: res => {
+          this.router.navigate(['/login']);
+        },
+        error: err => {
+          console.error('Registration failed', err);
+        }
+      });
+    }
   }
-}
 
   get username() {
     return this.registerForm.get('username');
