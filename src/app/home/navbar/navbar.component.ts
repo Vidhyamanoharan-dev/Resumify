@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon'; // Add this import
+import { MatIconModule } from '@angular/material/icon';
+import { AuthService } from '../../services/auth.service'; // ✅ import AuthService
 
 @Component({
   selector: 'app-navbar',
@@ -21,11 +22,18 @@ import { MatIconModule } from '@angular/material/icon'; // Add this import
 export class NavbarComponent {
   menuOpen = false;
 
+  constructor(public auth: AuthService) {} // ✅ inject AuthService
+
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
   }
 
   closeMenu() {
     this.menuOpen = false;
+  }
+
+  logout() {
+    this.auth.logout();
+    window.location.reload(); // Reload page or navigate to home/login
   }
 }
