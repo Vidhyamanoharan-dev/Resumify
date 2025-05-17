@@ -16,16 +16,15 @@
       </p>
       <!-- CTA Section -->
       <div class="cta-section">
-        <a
-          ><button
-            mat-raised-button
-            routerLink="/upload"
-            color="primary"
-            class="upload-btn"
-          >
-            Upload Resume
-          </button></a
-        >
+      <button
+  mat-raised-button
+  color="primary"
+  class="upload-btn"
+  (click)="navigateToBrowse()"
+>
+  Upload Resume
+</button>
+
       </div>
       <p class="cta-description">
         Upload your resume in any format (PDF, Word, HTML) and let our AI do the

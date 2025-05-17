@@ -1,30 +1,31 @@
 <mat-toolbar class="resumify-navbar">
   <span class="logo">RESUMIFY</span>
 
-  <!-- Mobile menu button -->
   <button mat-icon-button class="menu-button" (click)="toggleMenu()" aria-label="Menu">
     <mat-icon>{{ menuOpen ? 'close' : 'menu' }}</mat-icon>
   </button>
 
   <span class="spacer"></span>
 
-  <!-- Desktop nav -->
   <div class="desktop-nav">
     <a mat-button routerLink="/">Home</a>
-    <a mat-button routerLink="/browse" class="upload-btn">Upload Resume</a>
+<button mat-button class="upload-btn" (click)="onUploadResumeClick()">Upload Resume</button>
     <a mat-button routerLink="/parsedresumes">Parsed Resume</a>
     <a mat-button routerLink="/about">About</a>
     <a mat-button routerLink="/contact">Contact</a>
-    <a mat-button routerLink="/login">Login</a>
+
+    <ng-container *ngIf="userId; else loginLink">
+      <button mat-button>
+        <img src="assets/icons/propic.png" alt="User Icon" class="profile-icon" />
+        {{ userId }}
+      </button>
+      <button mat-button (click)="logout()">Logout</button>
+    </ng-container>
+
+    <ng-template #loginLink>
+      <a mat-button routerLink="/login">Login</a>
+    </ng-template>
   </div>
 
-  <!-- Mobile nav -->
-  <div class="mobile-nav" [class.active]="menuOpen">
-    <a mat-button routerLink="/" (click)="closeMenu()">Home</a>
-    <a mat-button routerLink="/browse" class="upload-btn" (click)="closeMenu()">Upload Resume</a>
-    <a mat-button routerLink="/parsedresumes" (click)="closeMenu()">Parsed Resume</a>
-    <a mat-button routerLink="/about" (click)="closeMenu()">About</a>
-    <a mat-button routerLink="/contact" (click)="closeMenu()">Contact</a>
-    <a mat-button routerLink="/login" (click)="closeMenu()">Login</a>
-  </div>
+  <!-- mobile nav, apply similar logic if needed -->
 </mat-toolbar>
