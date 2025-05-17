@@ -1,55 +1,42 @@
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { isPlatformBrowser } from '@angular/common';
-import { Observable, tap } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable,tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly apiUrl = 'http://localhost:8080/api/auth';
-  private readonly TOKEN_KEY = 'token';
-  private readonly USER_ID_KEY = 'userId';
-  private isBrowser: boolean;
+  private apiUrl = 'http://localhost:8080/api/auth'; // Adjust this to match your backend
 
-  constructor(
-    private http: HttpClient,
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {
-    this.isBrowser = isPlatformBrowser(this.platformId);
-  }
+  constructor(private http: HttpClient) { }    
 
   register(userData: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, userData);
   }
 
-  login(credentials: { email: string; password: string }): Observable<any> {
+  login(credentials: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
       tap((res: any) => {
-        if (this.isBrowser && res?.token && res?.id) {
-          localStorage.setItem(this.TOKEN_KEY, res.token);
-          localStorage.setItem(this.USER_ID_KEY, res.id);
-        }
+        // Save token or user ID to localStorage
+        localStorage.setItem('userId', res.id);
+        localStorage.setItem('token', res.token);
+        
       })
     );
   }
 
   logout(): void {
-    if (this.isBrowser) {
-      localStorage.removeItem(this.TOKEN_KEY);
-      localStorage.removeItem(this.USER_ID_KEY);
-    }
+    localStorage.removeItem('userId');
+    localStorage.removeItem('token');
   }
 
   isLoggedIn(): boolean {
-    return this.isBrowser && !!localStorage.getItem(this.TOKEN_KEY);
-  }
-
-  getToken(): string | null {
-    return this.isBrowser ? localStorage.getItem(this.TOKEN_KEY) : null;
+    return !!localStorage.getItem('token');
   }
 
   getUserId(): string | null {
-    return this.isBrowser ? localStorage.getItem(this.USER_ID_KEY) : null;
+    return localStorage.getItem('userId');
   }
 }
+
+
