@@ -28,8 +28,10 @@ export class RegisterComponent {
 
 onSubmit(): void {
   if (this.registerForm.valid) {
+    console.log("Sending:", this.registerForm.value);
     this.auth.register(this.registerForm.value).subscribe({
-      next: () => {
+      next: (res) => {
+        console.log("Registration response:", res);
         alert('Registration successful! Please log in.');
         this.router.navigate(['/login']);
       },
@@ -38,8 +40,11 @@ onSubmit(): void {
         alert('Registration failed. Please try again.');
       }
     });
+  } else {
+    console.warn("Form invalid", this.registerForm.value);
   }
 }
+
 
 
   get username() {

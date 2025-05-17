@@ -1,10 +1,4 @@
-<!-- app.component.html -->
-
-<!-- Show login user's navbar if logged in -->
 <app-loginusernavbar *ngIf="isLoggedIn"></app-loginusernavbar>
-
-<!-- Show guest user's navbar if not logged in -->
 <app-navbar *ngIf="!isLoggedIn"></app-navbar>
 
-<!-- Router outlet for the rest of the app -->
 <router-outlet></router-outlet>
