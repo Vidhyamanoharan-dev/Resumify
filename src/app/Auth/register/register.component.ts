@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http'; // ✅ Import this
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, HttpClientModule], // ✅ Add here
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
