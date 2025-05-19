@@ -44,6 +44,14 @@ onSubmit(): void {
     console.warn("Form invalid", this.registerForm.value);
   }
 }
+showPassword: boolean = false;
+
+togglePasswordVisibility() {
+  this.showPassword = !this.showPassword;
+}
+
+
+
 
 
 
