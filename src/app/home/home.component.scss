@@ -1,4 +1,14 @@
 @use "@angular/material" as mat;
+@use "sass:color";
+
+
+    $dark-bg: #0f0f0f;
+    $mint-green: #30d158;
+    $medium-gray: #434343;
+    $text-gray: #ccc;
+    $light-gray: #ddd;
+    $accent-green: #2ecc71;
+    $transition: all 0.3s ease;
 
 .home-container {
   background-color: var(--dark-bg);
@@ -123,16 +133,7 @@
   }
 }
 
-// Shared Variables
-$dark-bg: #0f0f0f;
-$mint-green: #30d158;
-$medium-gray: #434343;
-$text-gray: #ccc;
-$light-gray: #ddd;
-$accent-green: #2ecc71;
-$transition: all 0.3s ease;
-
-/.how-it-works {
+.how-it-works {
   background-color: #f9f9f9;
   padding: 4rem 2rem;
   text-align: center;
@@ -179,7 +180,7 @@ $transition: all 0.3s ease;
   background-color: #111;
   color: white;
   padding: 5rem 2rem;
-  font-family: "Segoe UI", sans-serif;
+  font-family: "Outfit", sans-serif;
 
   .contact-header {
     text-align: center;
@@ -248,7 +249,7 @@ $transition: all 0.3s ease;
         transition: $transition;
 
         &:hover {
-          background-color: darken($accent-green, 10%);
+          background-color: hsl(120, 100%, 30%);
         }
       }
     }

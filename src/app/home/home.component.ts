@@ -12,7 +12,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   imports: [
     MatIconModule,
     MatButtonModule,
-    FooterComponent
+    FooterComponent,
+
 ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
