@@ -17,9 +17,9 @@ export const routes: Routes = [
   { path: 'upload', component: UploadresumeComponent },
   { path: 'selectedfiles', component: SelectedFilesComponent },
   { path: 'enhance', component: ResumeEnhancingComponent },
-{path: 'parsedresumes', component: ParsedresumeComponent},
-
+  {path: 'parsedresumes', component: ParsedresumeComponent},
   { path: 'forgot-password', component: ForgotpassComponent },
+ 
 
   // Lazy loaded
 
