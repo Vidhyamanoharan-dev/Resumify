@@ -1,65 +1,61 @@
 @use "@angular/material" as mat;
-
+@use "sass:color";
+    $dark-bg: #0F0F0F;
+    $mint-green: #30D158;
+    $medium-gray: #434343;
+    $text-gray: #ccc;
+    $light-gray: #ddd;
+    $accent-green: #2ECC71;
+    $transition: all 0.3s ease;
 .home-container {
   background-color: var(--dark-bg);
   color: white;
   min-height: 100vh;
   padding-bottom: 2rem;
 }
-
 .content-wrapper {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
 }
-
 .hero-section {
   text-align: center;
   padding: 4rem 0 2rem;
-
   h1 span {
     font-size: 4.5rem;
     font-weight: 500;
     line-height: 1.3;
     margin-bottom: 1rem;
     margin-right: 0.4rem;
-
     @include mat.elevation(2);
   }
-
   .text-white {
     color: white;
   }
-
   .text-green {
     color: var(--green-accent);
   }
-
   .subtitle {
     font-size: 1.2rem;
     color: var(--deep-green);
     font-weight: 400;
   }
 }
-
 .features-section {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 2rem;
   margin: 4rem 0;
-
   .feature-card {
     // background: var(--deep-green);
     border-radius: 8px;
     padding: 2rem;
     transition: all 0.2s ease;
     text-align: center;
-
     &:hover {
       transform: translateY(-5px);
       @include mat.elevation(4);
     }
-
     .feature-icon {
       background-color: var(--deep-green);
       width: 60px;
@@ -69,7 +65,6 @@
       align-items: center;
       justify-content: center;
       margin: 0 auto 1.5rem;
-
       mat-icon {
         color: var(--light-mint);
         font-size: 30px;
@@ -77,24 +72,20 @@
         height: 30px;
       }
     }
-
     h3 {
       color: var(--light-mint);
       margin-bottom: 1rem;
       font-size: 1.3rem;
     }
-
     p {
       color: rgba(255, 255, 255, 0.8);
       line-height: 1.6;
     }
   }
 }
-
 .cta-section {
   text-align: center;
   margin: 3rem 0;
-
   .upload-btn {
     background-color: var(--green-accent);
     color: white;
@@ -102,54 +93,37 @@
     font-size: 1.1rem;
     border-radius: 4px;
     transition: background-color 0.3s;
-
     &:hover {
       background-color: var(--deep-green);
     }
   }
 }
-
 @media (max-width: 768px) {
   .hero-section {
     padding: 3rem 0;
-
     h1 {
       font-size: 2rem;
     }
   }
-
   .features-section {
     grid-template-columns: 1fr;
   }
 }
-
-// Shared Variables
-$dark-bg: #0f0f0f;
-$mint-green: #30d158;
-$medium-gray: #434343;
-$text-gray: #ccc;
-$light-gray: #ddd;
-$accent-green: #2ecc71;
-$transition: all 0.3s ease;
-
-/.how-it-works {
-  background-color: #f9f9f9;
+.how-it-works {
+  background-color: #F9F9F9;
   padding: 4rem 2rem;
   text-align: center;
-
   h2 {
     font-size: 2rem;
     font-weight: 700;
     color: #333;
     margin-bottom: 0.5rem;
   }
-
   .subtitle {
     font-size: 1.1rem;
     color: #666;
     margin-bottom: 2.5rem;
   }
-
   .step {
     background-color: #fff;
     max-width: 800px;
@@ -158,13 +132,11 @@ $transition: all 0.3s ease;
     border-radius: 1rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     text-align: left;
-
     h3 {
       font-size: 1.5rem;
       color: #222;
       margin-bottom: 1rem;
     }
-
     p {
       font-size: 1rem;
       color: #444;
@@ -172,25 +144,20 @@ $transition: all 0.3s ease;
     }
   }
 }
-
-
 // Contact Section
 .contact-section {
   background-color: #111;
   color: white;
   padding: 5rem 2rem;
-  font-family: "Segoe UI", sans-serif;
-
+  font-family: "Outfit", sans-serif;
   .contact-header {
     text-align: center;
     margin-bottom: 3rem;
-
     h2 {
       color: $accent-green;
       font-size: 2.5rem;
       margin-bottom: 1rem;
     }
-
     p {
       color: $text-gray;
       max-width: 600px;
@@ -198,44 +165,37 @@ $transition: all 0.3s ease;
       font-size: 1.1rem;
     }
   }
-
   .contact-content {
     display: flex;
     flex-wrap: wrap;
     gap: 2rem;
-
     .contact-form {
       flex: 1 1 500px;
-      background-color: #1a1a1a;
+      background-color: #1A1A1A;
       padding: 3rem;
       border-radius: 1rem;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-
       .form-group {
         margin-bottom: 1.5rem;
-
         label {
           color: $text-gray;
           font-weight: 600;
         }
-
         input,
         textarea {
           width: 100%;
           margin-top: 0.5rem;
           padding: 0.75rem 1rem;
           border-radius: 8px;
-          background-color: #2a2a2a;
+          background-color: #2A2A2A;
           border: none;
           color: white;
           font-size: 1rem;
-
           &::placeholder {
             color: #888;
           }
         }
       }
-
       button {
         background-color: $accent-green;
         color: black;
@@ -246,45 +206,36 @@ $transition: all 0.3s ease;
         font-size: 1rem;
         cursor: pointer;
         transition: $transition;
-
         &:hover {
-          background-color: darken($accent-green, 10%);
+          background-color: hsl(120, 100%, 30%);
         }
       }
     }
-
     .contact-info {
       flex: 1 1 300px;
       padding: 1rem;
-
       h3 {
         color: $accent-green;
         font-size: 1.5rem;
         margin-bottom: 1rem;
       }
-
       p {
         margin-bottom: 1rem;
-
         strong {
           color: white;
         }
       }
     }
   }
-
   .extra-info {
     margin-top: 2rem;
-
     h4 {
       color: $accent-green;
       font-size: 1.3rem;
       margin-top: 1.5rem;
     }
-
     p {
       margin-bottom: 1rem;
     }
   }
 }
-

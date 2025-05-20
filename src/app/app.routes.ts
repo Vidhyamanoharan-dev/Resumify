@@ -20,7 +20,7 @@ export const routes: Routes = [
         { path: 'enhance', component: ResumeEnhancingComponent },
               {
                 path: 'parsedresumes',
-                loadComponent: () => import('./parsedresume/parsedresume.component').then(m => m.ParsedresumeComponent),
+                loadComponent: () => import('./parsedresume/parsedresume.component').then(m => m.ResumeParserComponent),
                 canActivate: [AuthGuard]
               },
   { path: 'selectedfiles', component: SelectedFilesComponent },
