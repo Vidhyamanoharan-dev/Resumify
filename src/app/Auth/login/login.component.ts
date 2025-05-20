@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
       this.authService.login(credentials).subscribe({
         next: response => {
           console.log('Login successful:', response);
+          alert('Login successful!');
 
           // Save user data to localStorage
           localStorage.setItem('user', JSON.stringify(response));
