@@ -24,6 +24,7 @@ export const routes: Routes = [
                 canActivate: [AuthGuard]
               },
   { path: 'selectedfiles', component: SelectedFilesComponent },
+  { path: 'loading', loadComponent: () => import('./loading/loading.component').then(m => m.LoadingComponent) },
   { path: 'forgot-password', component: ForgotpassComponent },
   { path: '**', redirectTo: '' },
 ];
