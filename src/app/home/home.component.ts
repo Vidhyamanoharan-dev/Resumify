@@ -7,6 +7,7 @@ import { AuthService } from '../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HeroComponent } from "./hero/hero.component";
+import { AboutComponent } from './about/about.component';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,8 @@ import { HeroComponent } from "./hero/hero.component";
     MatCardModule,
     FooterComponent,
     HeroComponent,
-  ],
+    AboutComponent
+],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
