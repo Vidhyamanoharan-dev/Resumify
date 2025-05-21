@@ -26,4 +26,7 @@ export const routes: Routes = [
   { path: 'selectedfiles', component: SelectedFilesComponent },
   { path: 'forgot-password', component: ForgotpassComponent },
   { path: '**', redirectTo: '' },
+  { path: 'loading', loadComponent: () => import('./loading/loading.component').then(m => m.LoadingComponent) },
+  { path: 'animload', loadComponent: () => import('./animload/animload.component').then(m => m.AnimLoadingComponent) },
+
 ];
