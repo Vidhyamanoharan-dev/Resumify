@@ -1,52 +1,81 @@
+
+
+
 <div class="parser-container">
-    <aside class="sidebar">
-        <h3>Uploaded Resumes</h3>
-        <div class="resume-list">
-            <div class="resume-item" *ngFor="let resume of resumes">
-                <img src="assets/pdf-icon.png" alt="PDF" />
-                <span>{{ resume.name }}-cv.pdf</span>
-            </div>
-        </div>
-        <div class="upload-box">
-            <p>Click here to <strong>upload your file</strong> or drag</p>
-        </div>
-    </aside>
+  <aside class="sidebar">
+    <h3>Uploaded Resumes</h3>
+    <div class="resume-list">
+      <div class="resume-item" *ngFor="let resume of resumes">
+        <img src="Resumify/public/assets/icons/pdf.png" alt="PDF" />
+        <span>{{ resume.name }}-cv.pdf</span>
+      </div>
+    </div>
+   <div class="upload-box" >
+  <p>Click here to <strong>upload your file</strong> or drag</p>
+  <input
+    #fileInput
+    type="file"
+    accept="application/pdf"
+    (change)="onFileSelected($event)"
+    style="display: none"
+  />
+</div>
 
-    <main class="main-content">
-        <div class="controls">
-            <input type="text" [(ngModel)]="searchText" placeholder="Search....." />
-            <button (click)="sortByExperience()">Sort</button>
-            <button class="filter">Filter</button>
-            <button class="delete-all" (click)="deleteAll()">Delete All</button>
-        </div>
+  </aside>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Phone number</th>
-                    <th>Email</th>
-                    <th>Skills</th>
-                    <th>Experience</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let resume of filteredResumes; let i = index">
-                    <td>{{ resume.name }}</td>
-                    <td>{{ resume.phoneNumber }}</td>
-                    <td>{{ resume.email }}</td>
-                    <td>
-                        <span *ngFor="let skill of resume.skills" class="tag">{{
-              skill
-            }}</span>
-                    </td>
-                    <td>{{ resume.yearsOfExperience }} years</td>
-                    <td>
-                        <button class="delete" (click)="deleteResume(i)">Delete</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </main>
+  <main class="main-content">
+<div class="controls">
+  <input type="text" [(ngModel)]="searchText" placeholder="Search by name or skill..." />
+
+  <!-- Sort Button -->
+  <div class="dropdown-wrapper">
+    <button (click)="toggleSortDropdown()">Sort</button>
+    <ul *ngIf="showSortDropdown" class="dropdown">
+      <li (click)="setExperienceRange('0-1')">0 - 1 years</li>
+      <li (click)="setExperienceRange('1-2')">1 - 2 years</li>
+      <li (click)="setExperienceRange('2-3')">2 - 3 years</li>
+      <li (click)="setExperienceRange('3-5')">3 - 5 years</li>
+      <li (click)="setExperienceRange('5+')">5+ years</li>
+    </ul>
+  </div>
+
+  <!-- Filter Button -->
+  <div class="dropdown-wrapper">
+    <button (click)="toggleFilterDropdown()">Filter</button>
+    <div *ngIf="showFilterDropdown" class="dropdown">
+      <input type="text" [(ngModel)]="selectedSkill" (blur)="applySkillFilter(selectedSkill)" placeholder="Enter skill" />
+    </div>
+  </div>
+
+  <button class="delete-all" (click)="deleteAll()">clear All</button>
+</div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Phone number</th>
+          <th>Email</th>
+          <th>Skills</th>
+          <th>Experience</th>
+          <th></th>
+        </tr>
+      </thead>
+<tbody>
+  <tr *ngFor="let resume of filteredResumes; let i = index">
+    <td>{{ resume.name }}</td>
+    <td>{{ resume.phoneNumber }}</td>
+    <td>{{ resume.email }}</td>
+    <td>
+      <span *ngFor="let skill of resume.skills" class="tag">{{ skill }}</span>
+    </td>
+    <td>{{ resume.yearsOfExperience }} years</td>
+<td>
+  <i class="fa fa-trash delete-icon" (click)="deleteResume(i)"></i>
+</td>
+  </tr>
+</tbody>
+
+    </table>
+  </main>
 </div>
