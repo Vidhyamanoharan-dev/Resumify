@@ -1,14 +1,16 @@
 
+
+
 <div class="parser-container">
   <aside class="sidebar">
     <h3>Uploaded Resumes</h3>
     <div class="resume-list">
       <div class="resume-item" *ngFor="let resume of resumes">
-        <img src="assets/icons/pdf.png" alt="PDF" />
+        <img src="Resumify/public/assets/icons/pdf.png" alt="PDF" />
         <span>{{ resume.name }}-cv.pdf</span>
       </div>
     </div>
-   <div class="upload-box" (click)="fileInput.click()">
+   <div class="upload-box" >
   <p>Click here to <strong>upload your file</strong> or drag</p>
   <input
     #fileInput

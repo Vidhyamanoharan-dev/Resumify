@@ -1,5 +1,5 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UploadService } from '../services/upload.service';
 
@@ -11,6 +11,12 @@ import { UploadService } from '../services/upload.service';
   styleUrl: './parsedresume.component.scss'
 })
 export class ParsedresumeComponent implements OnInit {
+    @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+
+  triggerFileInput(): void {
+    this.fileInput.nativeElement.click();
+  }
+
   resumes: any[] = [];
   searchText = '';
   selectedExperienceRange = '';
@@ -30,6 +36,8 @@ export class ParsedresumeComponent implements OnInit {
     const userId = parseInt(userIdStr, 10);
     this.uploadService.getUserResumes(userId).subscribe({
       next: (resumes) => {
+          this.loadResumes();
+
         this.resumes = resumes;
         console.log('Parsed resumes:', this.resumes);
       },
@@ -99,12 +107,46 @@ export class ParsedresumeComponent implements OnInit {
     this.resumes.splice(index, 1);
   }
 
-  deleteAll() {
-    this.resumes = [];
+
+
+  //  Function to Clear All Resumes From Backend
+deleteAll() {
+  const userIdStr = localStorage.getItem('userId');
+  if (!userIdStr) {
+    alert('User not logged in.');
+    return;
   }
+  const userId = parseInt(userIdStr, 10);
+
+  if (!confirm("Are you sure you want to delete all resumes?")) return;
+
+  this.uploadService.deleteAllResumes(userId).subscribe({
+    next: (response) => {
+      console.log('Backend deleted:', response);
+      this.resumes = []; // Clear frontend too
+      alert("All resumes deleted successfully.");
+    },
+    error: (error) => {
+      console.error('Delete all failed:', error);
+      alert("Failed to delete resumes.");
+    }
+  });
+}
+
+loadResumes() {
+  const userId = parseInt(localStorage.getItem('userId')!, 10);
+  this.uploadService.getUserResumes(userId).subscribe({
+    next: (resumes) => {
+      this.resumes = resumes;
+    },
+    error: (err) => {
+      console.error('Failed to load resumes:', err);
+    }
+  });
+}
 
 
-  onFileSelected(event: Event): void {
+onFileSelected(event: Event): void {
   const file = (event.target as HTMLInputElement).files?.[0];
   if (!file) return;
 
@@ -125,9 +167,9 @@ export class ParsedresumeComponent implements OnInit {
   formData.append('userId', userId.toString());
 
   this.uploadService.uploadResume(userId, formData).subscribe({
-    next: (response) => {
-      console.log('Resume uploaded:', response);
-      this.resumes.push(response); // Assuming backend returns the parsed resume object
+    next: () => {
+      console.log('Resume uploaded!');
+      this.loadResumes();  // ✅ fetch latest list from server
     },
     error: (error) => {
       console.error('Upload failed:', error);
