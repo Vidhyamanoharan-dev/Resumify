@@ -6,6 +6,10 @@ import { Observable, tap, BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
+  getRole(): string {
+    return localStorage.getItem('userRole') || '';
+  }
+
   private apiUrl = 'http://localhost:8080/api/auth';
 
   // 🟢 BehaviorSubject to track login status
@@ -27,7 +31,7 @@ export class AuthService {
           localStorage.setItem('userId', res.id);
           localStorage.setItem('token', res.token);
           localStorage.setItem('username', res.username);
-          this.isLoggedInSubject.next(true); // 🔁 Notify subscribers
+          this.isLoggedInSubject.next(true);
         }
       })
     );
@@ -39,7 +43,7 @@ export class AuthService {
       localStorage.removeItem('userId');
       localStorage.removeItem('token');
       localStorage.removeItem('username');
-      this.isLoggedInSubject.next(false); // 🔁 Notify subscribers
+      this.isLoggedInSubject.next(false);
     }
   }
 
