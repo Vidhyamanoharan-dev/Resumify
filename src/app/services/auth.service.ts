@@ -61,4 +61,6 @@ export class AuthService {
   private hasToken(): boolean {
     return typeof window !== 'undefined' && !!localStorage.getItem('token');
   }
+
+
 }
