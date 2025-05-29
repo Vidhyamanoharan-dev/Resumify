@@ -31,6 +31,26 @@ export class HomeComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
+
+  showLoginOverlay = false;
+  showRegisterOverlay = false;
+
+  openLoginOverlay() {
+    this.showLoginOverlay = true;
+    this.showRegisterOverlay = false;
+  }
+
+  openRegisterOverlay() {
+    this.showRegisterOverlay = true;
+    this.showLoginOverlay = false;
+  }
+
+  closeOverlay() {
+    this.showLoginOverlay = false;
+    this.showRegisterOverlay = false;
+  }
+
+
   ngOnInit(): void {
     // Smooth scroll to section based on fragment
     this.route.fragment.subscribe(fragment => {

@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     if (this.loginForm.valid) {
       const credentials = {
-        username: this.loginForm.value.email,
+        email: this.loginForm.value.email,
         password: this.loginForm.value.password
       };
 
