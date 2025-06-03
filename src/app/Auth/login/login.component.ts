@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
           console.log('Login successful:', response);
           alert('Login successful!');
           localStorage.setItem('user', JSON.stringify(response));
+          localStorage.setItem('userId', response.id.toString());
           this.router.navigate(['/home']);
         },
         error: err => {

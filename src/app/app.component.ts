@@ -6,7 +6,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from "./home/navbar/navbar.component";
 import { LoginusernavbarComponent } from "./home/loginusernavbar/loginusernavbar.component";
-import { AuthService } from './services/auth.service'; // ✅ import
+import { AuthService } from './services/auth.service';
+import { LoadingComponent } from "./loading/loading.component"; // ✅ import
 
 @Component({
   selector: 'app-root',
@@ -18,8 +19,8 @@ import { AuthService } from './services/auth.service'; // ✅ import
     MatButtonModule,
     CommonModule,
     NavbarComponent,
-    LoginusernavbarComponent
-  ],
+    LoginusernavbarComponent,
+],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
