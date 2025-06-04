@@ -8,9 +8,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HeroComponent } from "./hero/hero.component";
 import { AboutComponent } from './about/about.component';
-import { LoadingComponent } from "../loading/loading.component";
-import { AnimLoadingComponent } from "../animload/animload.component";
 import { LoadingService } from '../services/LoadingService';
+
+
 
 @Component({
   selector: 'app-home',
@@ -22,23 +22,26 @@ import { LoadingService } from '../services/LoadingService';
     FooterComponent,
     HeroComponent,
     AboutComponent,
-    LoadingComponent,
 ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+
+  showLoginOverlay = false;
+  showRegisterOverlay = false;
+
   constructor(
     private router: Router,
     private authService: AuthService,
     private snackBar: MatSnackBar,
     private route: ActivatedRoute,
     private loadingService: LoadingService
+
   ) {}
 
 
-  showLoginOverlay = false;
-  showRegisterOverlay = false;
+
 
   openLoginOverlay() {
     this.showLoginOverlay = true;
@@ -82,13 +85,5 @@ export class HomeComponent implements OnInit {
       });
       return;
     }
-
-    this.loadingService.show(); // 👈 Show loading spinner
-
-    setTimeout(() => {
-      this.router.navigate(['/browse']).then(() => {
-        this.loadingService.hide(); // 👈 Hide spinner after navigation
-      });
-    }, 900); // You can adjust delay as needed
   }
 }
