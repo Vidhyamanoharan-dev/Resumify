@@ -25,8 +25,15 @@ export const routes: Routes = [
   },
   { path: 'selectedfiles', component: SelectedFilesComponent },
   { path: 'forgot-password', component: ForgotpassComponent },
-  { path: '**', redirectTo: '' },
   { path: 'loading', loadComponent: () => import('./loading/loading.component').then(m => m.LoadingComponent) },
   { path: 'animload', loadComponent: () => import('./animload/animload.component').then(m => m.AnimLoadingComponent) },
+
+  { path: 'about', loadComponent: () => import('./footer-pages/aboutpage/aboutpage.component').then(m => m.AboutpageComponent) },
+  { path: 'careers', loadComponent: () => import('./footer-pages/careers/careers.component').then(m => m.CareersComponent) },
+  { path: 'pricing', loadComponent: () => import('./footer-pages/pricing/pricing.component').then(m => m.PricingComponent) },
+  { path: 'blog', loadComponent: () => import('./footer-pages/blog/blog.component').then(m => m.BlogComponent) },
+  { path: 'press', loadComponent: () => import('./footer-pages/press/press.component').then(m => m.PressComponent) },
+
+  { path: '**', redirectTo: '' },
 
 ];
