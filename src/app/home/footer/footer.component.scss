@@ -34,12 +34,13 @@ $transition: all 0.3s ease;
 .footer-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 2rem; 
+  
 }
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 2fr;
   gap: 3rem;
 
   @media (min-width: 768px) {
@@ -372,7 +373,7 @@ $transition: all 0.3s ease;
 RESPONSIVE ADJUSTMENTS
 ==================== */
 
-@media (max-width: 640px) {
+@media (max-width: 720px) {
   .footer {
     padding-top: 4rem;
   }
