@@ -82,7 +82,7 @@ $inner-spacing: 1.5rem;
         transition: $transition;
 
         &:hover {
-          color: adjust($accent-green, 10%);
+          color: color.adjust($accent-green,$lightness : 10%);
           text-decoration: underline;
         }
       }

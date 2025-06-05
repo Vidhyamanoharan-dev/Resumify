@@ -183,7 +183,7 @@ $inner-spacing: 1.5rem;
         color: $dark-bg;
 
         &:hover {
-          background-color: color.adjust($mint-green,$lightness :  5%);
+          background-color: color.adjust($mint-green, $lightness :  5%);
         }
       }
 

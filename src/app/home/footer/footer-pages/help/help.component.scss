@@ -19,7 +19,7 @@ $inner-spacing: 1.5rem;
 
 // Mixins
 @mixin card-style {
-  background: color.adjust($dark-bg, 5%);
+  background: color.adjust($dark-bg,  $lightness : 5%);
   border-radius: $border-radius;
   box-shadow: $box-shadow;
   padding: $inner-spacing;
@@ -160,7 +160,7 @@ $inner-spacing: 1.5rem;
         }
 
         &:hover {
-          color: color.adjust($mint-green, 10%);
+          color: color.adjust($mint-green,  $lightness : 10%);
 
           mat-icon {
             transform: translateX(3px);
@@ -182,7 +182,7 @@ $inner-spacing: 1.5rem;
 
     .faq-accordion {
       .mat-expansion-panel {
-        background: color.adjust($dark-bg, 5%);
+        background: color.adjust($dark-bg,  $lightness : 5%);
         color: $text-gray;
         margin-bottom: 0.75rem;
         border-radius: $border-radius !important;
@@ -213,7 +213,7 @@ $inner-spacing: 1.5rem;
           text-decoration: underline;
 
           &:hover {
-            color: color.adjust($accent-green, 10%);
+            color: color.adjust($accent-green,  $lightness : 10%);
           }
         }
       }
@@ -276,7 +276,7 @@ $inner-spacing: 1.5rem;
             color: $dark-bg;
 
             &:hover {
-              background-color: color.adjust($mint-green, 5%);
+              background-color: color.adjust($mint-green,$lightness : 5%);
             }
           }
 
