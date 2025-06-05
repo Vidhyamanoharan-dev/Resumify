@@ -64,7 +64,7 @@ export class AppComponent implements OnInit {
         // Slight delay to show smooth transition
         setTimeout(() => {
           this.loadingService.setLoading(false);
-        }, 500);
+        }, 2000);
       }
     });
 

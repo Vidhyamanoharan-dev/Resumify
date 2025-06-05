@@ -20,7 +20,7 @@ export class LoadingComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // ⏳ Optional fallback: auto-disable loader after 5 seconds
-    this.autoStopSub = timer(5000).subscribe(() => {
+    this.autoStopSub = timer(10000).subscribe(() => {
       this.loadingService.setLoading(false);
     });
   }
