@@ -19,7 +19,7 @@ $inner-spacing: 1.5rem;
 
 // Mixins
 @mixin card-style {
-  background: color.adjust($dark-bg, 5%);
+  background: color.adjust($dark-bg, $lightness : 5%);
   border-radius: $border-radius;
   box-shadow: $box-shadow;
   padding: $inner-spacing;
@@ -183,7 +183,7 @@ $inner-spacing: 1.5rem;
         color: $dark-bg;
 
         &:hover {
-          background-color: color.adjust($mint-green, 5%);
+          background-color: color.adjust($mint-green,$lightness :  5%);
         }
       }
 
