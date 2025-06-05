@@ -8,9 +8,11 @@ $text-gray: #ccc;
 $light-gray: #ddd;
 $accent-green: #2ecc71;
 $transition: all 0.3s ease;
+
 /* ====================
    FOOTER STYLES
    ==================== */
+
 .footer {
   background-color: $dark-bg;
   color: $text-gray;
@@ -104,7 +106,7 @@ $transition: all 0.3s ease;
     }
 
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       top: 0;
       left: 0;
@@ -139,7 +141,6 @@ $transition: all 0.3s ease;
 /* Enhanced Trusted By Section */
 .trusted-by {
   margin: 2rem 0;
-  padding-top: 2rem;
   border-top: 1px solid rgba($mint-green, 0.2);
 
   .trusted-by-text {
@@ -209,6 +210,7 @@ $transition: all 0.3s ease;
 }
 
 /* Footer Columns */
+
 .footer-column {
   h4.footer-heading {
     font-size: 1.2rem;
@@ -270,6 +272,7 @@ $transition: all 0.3s ease;
 }
 
 /* Back to Top Button */
+
 .back-to-top {
   position: fixed;
   bottom: 2rem;
@@ -306,6 +309,7 @@ $transition: all 0.3s ease;
 }
 
 /* Footer Bottom */
+
 .footer-bottom {
   background-color: color.adjust($dark-bg, $lightness: 5%);
   padding: 1.5rem 0;
@@ -365,8 +369,9 @@ $transition: all 0.3s ease;
 }
 
 /* ====================
-     RESPONSIVE ADJUSTMENTS
-     ==================== */
+RESPONSIVE ADJUSTMENTS
+==================== */
+
 @media (max-width: 640px) {
   .footer {
     padding-top: 4rem;
