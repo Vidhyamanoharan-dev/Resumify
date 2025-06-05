@@ -1,0 +1,112 @@
+
+.contact-page {
+  max-width: 1200px;
+  margin: auto;
+  padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+  color: #ffffff;
+  line-height: 1.6;
+  
+  .content{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem;
+
+    .content-box,
+    .form-box {
+      flex: 1 1 48%;
+      min-width: 300px;
+    }
+  }
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #30d158;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+    margin-top: 2rem;
+    margin-bottom: 0.8rem;
+    color: #30d158;
+  }
+
+  ul {
+    padding-left: 1rem;
+    list-style: disc;
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  code {
+    background-color: #1c1c1e;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 0.5rem;
+  }
+
+    .contact-form {
+        background: #0f0f0f;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        transition: 0.3s ease;
+        border: 1px solid rgba(#30d158, 0.1);
+        padding: 2rem;
+        .form-group {
+            margin-bottom: 2rem;
+            label {
+                display: block;
+                margin-bottom: 0.75rem;
+                font-weight: 500;
+                color: #ddd;
+            }
+            input,
+            textarea {
+                width: 90%;
+                padding: 1rem;
+                border: 1px solid #434343;
+                border-radius: 12px;
+                font-family: inherit;
+                transition: 0.3s ease;
+                font-size: 1rem;
+                background-color:#201e1e;
+                color: #ccc;
+                &:focus {
+                outline: none;
+                border-color: #30d158;
+                box-shadow: 0 0 0 3px rgba(#30d158, 0.1);
+                }
+            }
+            textarea {
+                min-height: 100px;
+                resize: vertical;
+            }
+        }
+        button {
+            background: linear-gradient(135deg,#30d158, #2ecc71);
+            color: #0f0f0f;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            width: 100%;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: 0.3s ease;
+            border: none;
+            cursor: pointer;
+            &:hover {
+                opacity: 0.9;
+                transform: translateY(-2px);
+            }
+        }
+    }
+     @media (max-width: 768px) {
+    .content-box,
+    .form-box {
+      flex: 1 1 100%;
+    }
+  }
+}

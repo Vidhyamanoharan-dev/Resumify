@@ -25,8 +25,31 @@ export const routes: Routes = [
   },
   { path: 'selectedfiles', component: SelectedFilesComponent },
   { path: 'forgot-password', component: ForgotpassComponent },
-  { path: '**', redirectTo: '' },
   { path: 'loading', loadComponent: () => import('./loading/loading.component').then(m => m.LoadingComponent) },
   { path: 'animload', loadComponent: () => import('./animload/animload.component').then(m => m.AnimLoadingComponent) },
-
+  { path: 'help',
+    loadComponent: () =>
+      import('./footer-pages/help/help.component').then(m => m.HelpComponent)
+  },
+  {
+    path: 'contact',
+    loadComponent: () =>
+      import('./footer-pages/contactus/contactus.component').then(m => m.ContactusComponent)
+  },
+  {
+    path: 'privacy-policy',
+    loadComponent: () =>
+      import('./footer-pages/privacypolicy/privacypolicy.component').then(m => m.PrivacypolicyComponent)
+  },
+  {
+    path: 'terms-of-service',
+    loadComponent: () =>
+      import('./footer-pages/termsofservice/termsofservice.component').then(m => m.TermsofserviceComponent)
+  },
+  {
+    path: 'gdpr-ccpa',
+    loadComponent: () =>
+      import('./footer-pages/gdrp-ccpa/gdrp-ccpa.component').then(m => m.GDRPCCPAComponent)
+  },
+  { path: '**', redirectTo: '' }
 ];

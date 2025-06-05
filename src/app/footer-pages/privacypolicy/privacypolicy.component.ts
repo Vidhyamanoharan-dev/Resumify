@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { FooterComponent } from "../../home/footer/footer.component";
 
 @Component({
   selector: 'app-privacypolicy',
-  imports: [],
+  imports: [FooterComponent],
   templateUrl: './privacypolicy.component.html',
   styleUrl: './privacypolicy.component.scss'
 })

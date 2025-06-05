@@ -1,0 +1,55 @@
+.help-support {
+  padding: 2rem;
+  max-width: 80%;
+  margin: auto;
+  font-family: 'Segoe UI', sans-serif;
+  color: #ffffff;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    color: #2ecc71;
+    align-self: center;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+    margin-top: 2rem;
+  }
+
+  h3 {
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    color: #2ecc71;
+;
+  }
+  hr {
+    border: none;
+    height: 1px;
+    background-color: #30d158;
+    width: 100%;
+    margin: 2rem 0;
+  }
+
+  p {
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    font-size: large;
+  }
+  a {
+    color: #007acc;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+  #contact{
+    color:#30d158;
+  }
+}
