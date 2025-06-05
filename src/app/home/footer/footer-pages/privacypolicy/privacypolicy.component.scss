@@ -1,0 +1,61 @@
+@use "@angular/material" as mat;
+@use "sass:color";
+
+// Color Palette
+$dark-bg: #0f0f0f;
+$mint-green: #30d158;
+$medium-gray: #434343;
+$text-gray: #ccc;
+$light-gray: #ddd;
+$accent-green: #2ecc71;
+$transition: all 0.3s ease;
+
+// Design Tokens
+$border-radius: 12px;
+$box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+$section-spacing: 3rem;
+$card-padding: 2rem;
+
+// Mixins
+@mixin card-style {
+  background: $dark-bg;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  padding: $card-padding;
+  transition: $transition;
+  border: 1px solid rgba($mint-green, 0.1);
+}
+
+.policy-page {
+  background-color: $dark-bg;
+  color: $text-gray;
+  padding: $section-spacing;
+
+  .policy-container {
+    @include card-style;
+    max-width: 850px;
+    margin: 0 auto;
+
+    h1 {
+      color: $mint-green;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    p {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    ul {
+      list-style: disc;
+      padding-left: 1.5rem;
+
+      li {
+        margin-bottom: 1rem;
+        color: $light-gray;
+      }
+    }
+  }
+}

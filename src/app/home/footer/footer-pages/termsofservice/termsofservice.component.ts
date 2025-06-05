@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
+import { FooterComponent } from "../../footer.component";
+
 
 @Component({
   selector: 'app-termsofservice',
-  imports: [],
+  standalone: true,
+  imports: [FooterComponent],
   templateUrl: './termsofservice.component.html',
-  styleUrl: './termsofservice.component.scss'
+  styleUrls: ['./termsofservice.component.scss']
 })
-export class TermsofserviceComponent {
-
-}
+export class TermsofserviceComponent { }

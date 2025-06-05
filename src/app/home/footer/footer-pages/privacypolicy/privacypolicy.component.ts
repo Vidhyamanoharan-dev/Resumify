@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
+import { FooterComponent } from '../../footer.component';
 
 @Component({
   selector: 'app-privacypolicy',
-  imports: [],
+  standalone: true,
+  imports: [FooterComponent],
   templateUrl: './privacypolicy.component.html',
-  styleUrl: './privacypolicy.component.scss'
+  styleUrls: ['./privacypolicy.component.scss']
 })
-export class PrivacypolicyComponent {
-
-}
+export class PrivacypolicyComponent { }
