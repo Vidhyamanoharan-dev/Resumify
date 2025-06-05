@@ -11,11 +11,11 @@ import { Observable, Subscription, timer } from 'rxjs';
   styleUrls: ['./loading.component.scss']
 })
 export class LoadingComponent implements OnInit, OnDestroy {
-  loading$: Observable<boolean>;
+  isLoading$: Observable<boolean>;
   private autoStopSub!: Subscription;
 
   constructor(private loadingService: LoadingService) {
-    this.loading$ = this.loadingService.loading$;
+    this.isLoading$ = this.loadingService.loading$;
   }
 
   ngOnInit(): void {
