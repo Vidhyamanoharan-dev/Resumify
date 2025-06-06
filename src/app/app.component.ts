@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, PLATFORM_ID } from '@angular/core';
 import { Router, NavigationEnd, RouterOutlet, NavigationStart, NavigationCancel, NavigationError } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -33,6 +35,7 @@ export class AppComponent implements OnInit {
   isLoading$!: Observable<boolean>;
 
   constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
     private authService: AuthService,
     private loadingService: LoadingService,
     private router: Router
@@ -52,16 +55,20 @@ export class AppComponent implements OnInit {
       console.log('Login status changed:', status);
     });
 
-    // 👉 Show loading on route change start
+    // ✅ Routes where loading should be shown
+    const loadingRoutes = ['/upload', '/parsed'];
+
+    // 👉 Show loading only on selected routes
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
-        this.loadingService.setLoading(true);
+        if (loadingRoutes.some(path => event.url.startsWith(path))) {
+          this.loadingService.setLoading(true);
+        }
       } else if (
         event instanceof NavigationEnd ||
         event instanceof NavigationCancel ||
         event instanceof NavigationError
       ) {
-        // Slight delay to show smooth transition
         setTimeout(() => {
           this.loadingService.setLoading(false);
         }, 2000);
@@ -72,7 +79,9 @@ export class AppComponent implements OnInit {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (isPlatformBrowser(this.platformId)) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     });
   }
 
