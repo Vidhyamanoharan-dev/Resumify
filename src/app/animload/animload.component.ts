@@ -13,7 +13,7 @@ export class AnimLoadingComponent {
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-
+    console.log("AnimLoadingComponent loaded");
     setTimeout(() => {
       this.router.navigate(['/upload']);
     }, 9000);

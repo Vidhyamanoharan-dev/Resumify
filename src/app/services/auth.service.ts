@@ -6,6 +6,9 @@ import { Observable, tap, BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
+  sendCode(email: any) {
+    throw new Error('Method not implemented.');
+  }
   private apiUrl = 'http://localhost:8080/api/auth';
 
   // 🟢 BehaviorSubject to track login status
@@ -57,4 +60,10 @@ export class AuthService {
   private hasToken(): boolean {
     return typeof window !== 'undefined' && !!localStorage.getItem('token');
   }
+
+
+  sendOtpToEmail(email: string) {
+    return this.http.post('http://localhost:8080/api/setEmail', { email });
+  }
+
 }
