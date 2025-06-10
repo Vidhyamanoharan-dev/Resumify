@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="left-side">
+    <img
+      src="/assets/images/resume.jpg"
+      alt="resume image"
+      class="resume-img"
+    />
+  </div>
+
+  <div class="right-side">
+    <div class="form">
+      <h2>Login to Your Account</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          placeholder="Enter your Email here"
+        />
+        <div class="error" *ngIf="email?.touched && email?.invalid">
+          <small *ngIf="email?.errors?.['required']">Email is required</small>
+          <small *ngIf="email?.errors?.['email']">Invalid email format</small>
+        </div>
+
+        <label for="password">Password</label>
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          id="password"
+          formControlName="password"
+          placeholder="Enter your Password here"
+        />
+        <div class="error" *ngIf="password?.touched && password?.invalid">
+          <small *ngIf="password?.errors?.['required']"
+            >Password is required</small
+          >
+          <small *ngIf="password?.errors?.['minlength']"
+            >Minimum 6 characters required</small
+          >
+        </div>
+        <div class="forgot-password">
+          <a href="/forgot-password">Forgot Password?</a>
+        </div>
+        <button class="submit" type="submit">Login</button>
+      </form>
+    </div>
+
+    <p class="login-link">
+      Don't have an account? <a href="/register">Create one</a>
+    </p>
+
+    <div class="divider">– OR –</div>
+    <div class="social-buttons">
+      <button class="go-btn">
+        <img src="assets/images/google.png" alt="Google" />
+        Sign in with Google
+      </button>
+      <button class="gi-btn">
+        <img src="assets/images/linkedin.png" alt="LinkedIn" />
+        Sign in with LinkedIn
+      </button>
+    </div>
+  </div>
+</div>

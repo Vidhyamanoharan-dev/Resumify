@@ -1,0 +1,256 @@
+.loading-container {
+  margin: 0;
+  padding: 0;
+  background-color: #121212;
+  color: #ffffff;
+  height: 100vh;
+  width: 100vw;
+  font-family: "Inter", "Segoe UI", sans-serif;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999; // Ensure it overlays everything
+
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .center-content {
+    width: 90%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+
+    .logo-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      color: #3cb662;
+      animation: pulse 2s infinite ease-in-out;
+    }
+
+    .logo-text {
+      font-size: 1.75rem;
+      font-weight: 600;
+      background: linear-gradient(90deg, #3cb662, #4caf50);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+  }
+
+  .progress-container {
+    width: 100%;
+    max-width: 500px;
+
+    .progress-bar {
+      height: 8px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 0.75rem;
+
+      .progress-fill {
+        height: 100%;
+        width: 0;
+        background: linear-gradient(90deg, #3cb662, #4caf50);
+        border-radius: 4px;
+        animation: progress 2.5s infinite ease-in-out;
+      }
+    }
+
+    .progress-text {
+      text-align: center;
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
+
+  .animated-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin: 1.5rem 0;
+
+    .icon-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+
+      .icon-wrapper {
+        width: 4rem;
+        height: 4rem;
+        background: rgba(60, 182, 98, 0.1);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid rgba(60, 182, 98, 0.3);
+        transition: all 0.3s ease;
+
+        svg {
+          width: 2rem;
+          height: 2rem;
+          color: #3cb662;
+        }
+      }
+
+      .icon-label {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.8);
+      }
+    }
+
+    .processing-animation {
+      display: flex;
+      align-items: center;
+      height: 4rem;
+
+      .pulse-dots {
+        display: flex;
+        gap: 0.5rem;
+
+        .dot {
+          width: 0.75rem;
+          height: 0.75rem;
+          background-color: #3cb662;
+          border-radius: 50%;
+          opacity: 0.6;
+
+          &:nth-child(1) {
+            animation: pulse 1.5s infinite;
+          }
+          &:nth-child(2) {
+            animation: pulse 1.5s infinite 0.2s;
+          }
+          &:nth-child(3) {
+            animation: pulse 1.5s infinite 0.4s;
+          }
+        }
+      }
+    }
+  }
+
+  .status-message {
+    text-align: center;
+    margin-top: 1rem;
+
+    .typing-text {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: white;
+      position: relative;
+      display: inline-block;
+
+      &::after {
+        content: "|";
+        animation: blink 1s infinite;
+        position: absolute;
+        right: -8px;
+      }
+    }
+
+    .estimated-time {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.6);
+
+      .time-value {
+        color: #3cb662;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+@keyframes progress {
+  0% {
+    width: 0%;
+  }
+  50% {
+    width: 80%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .loading-container {
+    .animated-icons {
+      gap: 1rem;
+
+      .icon-card {
+        .icon-wrapper {
+          width: 3rem;
+          height: 3rem;
+
+          svg {
+            width: 1.5rem;
+            height: 1.5rem;
+          }
+        }
+
+        .icon-label {
+          font-size: 0.8rem;
+        }
+      }
+
+      .processing-animation {
+        height: 3rem;
+
+        .pulse-dots {
+          gap: 0.3rem;
+
+          .dot {
+            width: 0.5rem;
+            height: 0.5rem;
+          }
+        }
+      }
+    }
+
+    .status-message {
+      .typing-text {
+        font-size: 1rem;
+      }
+    }
+  }
+}

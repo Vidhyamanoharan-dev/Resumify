@@ -1,0 +1,349 @@
+@use "@angular/material" as mat;
+@use "sass:color";
+// Color Palette
+$dark-bg: #0f0f0f;
+$mint-green: #32ac51;
+$medium-gray: #434343;
+$text-gray: #ccc;
+$light-gray: #ddd;
+$accent-green: #2ecc71;
+$transition: all 0.3s ease;
+
+// Design Tokens
+$border-radius: 12px;
+$box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+$section-spacing: 6rem;
+$card-padding: 2rem;
+
+.parser-container {
+  display: flex;
+  background: #121212;
+  color: #fff;
+  height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.sidebar {
+  width: 22%;
+  padding: 1rem;
+  background: #1e1e1e;
+  border-right: 1px solid #333;
+
+  h3 {
+    color: $mint-green;
+    margin-bottom: 1rem;
+  }
+
+  .resume-list {
+    .resume-item {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem;
+      border: 1px solid #333;
+      border-radius: 5px;
+      margin-bottom: 0.5rem;
+      background: #2c2c2c;
+
+      img {
+        width: 20px;
+        margin-right: 8px;
+      }
+
+      span {
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  .upload-box {
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 2px dashed #3cb662;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    background: #181818;
+    p {
+      color: #ccc;
+      strong {
+        color: #3cb662;
+      }
+    }
+  }
+}
+
+.main-content {
+  width: 78%;
+  padding: 2rem;
+
+  .controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1rem;
+    position: relative; // Required to position dropdowns inside it
+
+    .dropdown-wrapper {
+      position: relative;
+      display: inline-block;
+      font-family: "outfit", "poppins";
+    }
+
+    .dropdown {
+      position: absolute; // ⬅️ This makes it float
+      top: 2.5rem;
+      left: 10px;
+      background-color: #2a2a2a;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      border: 1px solid #444;
+      border-radius: 6px;
+      padding: 0.5rem;
+      z-index: 100;
+      width: 160px;
+      // box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4); // optional for floating effect
+
+      .skill-input {
+        width: 90%;
+
+        border: 1px solid #555;
+        border-radius: 6px;
+        background-color: #2a2a2a;
+        color: #fff;
+        margin-bottom: 0.5rem;
+
+        &::placeholder {
+          color: #aaa;
+        }
+      }
+
+      .suggestions {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 0.5rem 0;
+        max-height: 120px;
+        overflow-y: auto;
+
+        li {
+          padding: 0.4rem 0.6rem;
+          cursor: pointer;
+          background: #333;
+          margin-bottom: 4px;
+          border-radius: 4px;
+
+          &:hover {
+            background-color: $mint-green;
+          }
+        }
+      }
+
+      .chip-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+
+        .chip {
+          background-color: #333;
+          color: #fff;
+          padding: 0.3rem 0.6rem;
+          border-radius: 20px;
+          display: flex;
+          align-items: center;
+
+          .remove-btn {
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 1rem;
+            margin-left: 6px;
+            cursor: pointer;
+
+            &:hover {
+              color: $mint-green;
+            }
+          }
+        }
+      }
+    }
+    .dropdown li {
+      padding: 10px 16px;
+      font-size: 14px;
+      color: #ffffff;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    .dropdown li:hover {
+      background-color: $mint-green;
+    }
+
+    .dropdown li:active {
+      background-color: $mint-green;
+    }
+
+    input {
+      flex: 1;
+      padding: 0.5rem;
+      border-radius: 5px;
+      border: none;
+      background: #1e1e1e;
+      color: #fff;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      border: none;
+      background: $mint-green;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+
+      &.filter {
+        background: $mint-green;
+        color: #fff;
+      }
+
+      &.delete-all {
+        background: #464545;
+        color: white;
+      }
+    }
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    thead {
+      background: #222;
+      th {
+        padding: 0.75rem;
+        text-align: left;
+        border-bottom: 1px solid #444;
+      }
+    }
+
+    tbody {
+      tr {
+        border-bottom: 1px solid #333;
+      }
+
+      td {
+        padding: 0.5rem;
+        vertical-align: top;
+        font-size: 0.75rem;
+
+        .tag {
+          background: none;
+          border-color: $mint-green;
+          border: 1px solid $mint-green;
+          color: #ffffff;
+          border-radius: 10px;
+          padding: 0.25rem 0.5rem;
+          margin: 0 4px 4px 0;
+          display: inline-block;
+          font-size: 0.6rem;
+          font-weight: 500;
+        }
+
+        .delete-icon {
+          color: #888; // grey color
+          cursor: pointer;
+          font-size: 1.1rem;
+          transition: color 0.2s ease;
+
+          &:hover {
+            color: #ff4d4d; // red on hover
+          }
+        }
+      }
+    }
+  }
+}
+.filter-dropdown {
+  width: 300px;
+  background: #1c1c1c;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+
+  .chip-search {
+    width: 100%;
+    padding: 0.5rem;
+    background: #2a2a2a;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    margin-bottom: 0.75rem;
+  }
+
+  .filtered-skill-list {
+    max-height: 120px;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+
+    .skill-option {
+      background: #2a2a2a;
+      color: #fff;
+      padding: 0.4rem 0.75rem;
+      margin: 0.25rem 0;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.2s;
+
+      &:hover {
+        background: #3cb662;
+        color: #000;
+      }
+    }
+  }
+
+  .chip-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+
+    .chip {
+      display: flex;
+      align-items: center;
+      background: #3cb662;
+      color: #000;
+      border-radius: 20px;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.75rem;
+      cursor: pointer;
+
+      .remove {
+        margin-left: 0.5rem;
+        font-weight: bold;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .apply-btn {
+    width: 100%;
+    background-color: #3cb662;
+    color: #000;
+    border: none;
+    border-radius: 6px;
+    padding: 0.5rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+
+    &:hover {
+      background-color: #34a151;
+    }
+  }
+
+  .resume-preview {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    border-radius: 4px;
+    margin-right: 10px;
+    vertical-align: middle;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }
+}

@@ -1,0 +1,24 @@
+<div class="upload-container">
+  <h2>How do you want to upload your resume?</h2>
+  <p>Drag & Drop or upload your Resume</p>
+
+  <div
+    class="upload-box"
+    [class.drag-over]="dragOver"
+    (drop)="onFileDropped($event)"
+    (dragover)="allowDrop($event)"
+    (dragleave)="clearDragOver()"
+  >
+    <p class="upload-label">Upload Your Files</p>
+
+<div class="upload-icon">
+  <img src="assets/icons/Icon.png" alt="Upload Icon" />
+</div>
+
+    <p class="drag-text">Drag and drop a file here</p>
+    <label class="browse-btn">
+      <input type="file" accept="application/pdf" (change)="onBrowseFile($event)" hidden />
+      Browse
+    </label>
+  </div>
+</div>
