@@ -26,6 +26,13 @@ export const routes: Routes = [
   { path: 'pricing', loadComponent: () => import('./home/footer/footer-pages/pricing/pricing.component').then(m => m.PricingComponent) },
   { path: 'blog', loadComponent: () => import('./home/footer/footer-pages/blog/blog.component').then(m => m.BlogComponent) },
 
+  // ✅ Resume Preview route (new)
+  {
+    path: 'resume-preview',
+    loadComponent: () => import('./profileview/profileview.component').then(m => m.ProfileviewComponent),
+    canActivate: [AuthGuard]
+  },
+
   // ✅ Feature routes with lazy loading + auth guard
   {
     path: 'upload',

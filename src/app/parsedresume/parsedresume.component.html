@@ -2,51 +2,34 @@
   <aside class="sidebar">
     <h3>Uploaded Resumes</h3>
     <div class="resume-list">
-   <div class="resume-item" *ngFor="let resume of resumes">
-  <a
-    *ngIf="resume.imageUrl; else pdfIcon"
-    [href]="resume.imageUrl"
-    [download]="resume.name + '.png'"
-    target="_blank"
-  >
-    <img
-      [src]="resume.imageUrl"
-      alt="Resume Preview"
-      class="resume-preview"
-    />
-  </a>
+      <div class="resume-item" *ngFor="let resume of resumes">
+        <a *ngIf="resume.imageUrl; else pdfIcon" [href]="resume.imageUrl" [download]="resume.name + '.png'"
+          target="_blank">
+          <img [src]="resume.imageUrl" alt="Resume Preview" class="resume-preview" />
+        </a>
 
-  <ng-template #pdfIcon>
-    <img src="assets/icons/pdf.png" alt="PDF Icon" />
-  </ng-template>
+        <ng-template #pdfIcon>
+          <img src="assets/icons/pdf.png" alt="PDF Icon" />
+        </ng-template>
 
-  <span>{{ resume.name }}-cv.pdf</span>
-</div>
+        <span>{{ resume.name }}-cv.pdf</span>
+      </div>
 
     </div>
 
     <!-- Upload Section -->
     <div class="upload-box" (click)="triggerFileUpload()">
       <p>Click here to <strong>upload your file</strong> or drag</p>
-      <input
-        #fileInput
-        type="file"
-        accept="application/pdf"
-        (change)="onFileSelected($event)"
-        style="display: none"
-      />
+      <input #fileInput type="file" accept="application/pdf" multiple (change)="onFileSelected($event)"
+        style="display: none" />
     </div>
   </aside>
 
   <main class="main-content">
     <!-- Filters + Controls -->
     <div class="controls">
-      <input
-        type="text"
-        [(ngModel)]="searchText"
-        (input)="applyAllFilters()"
-        placeholder="Search by name or skill..."
-      />
+      <input type="text" [(ngModel)]="searchText" (input)="applyAllFilters()"
+        placeholder="Search by name or skill..." />
 
       <!-- Experience Filter -->
       <div class="dropdown-wrapper">
@@ -65,13 +48,8 @@
       <div class="dropdown-wrapper">
         <button (click)="toggleFilterDropdown()">Filter</button>
         <div *ngIf="showFilterDropdown" class="dropdown">
-          <input
-            type="text"
-            [(ngModel)]="skillSearch"
-            (input)="onSkillSearch()"
-            placeholder="Search skill..."
-            class="skill-input"
-          />
+          <input type="text" [(ngModel)]="skillSearch" (input)="onSkillSearch()" placeholder="Search skill..."
+            class="skill-input" />
 
           <!-- Suggested Skills -->
           <ul *ngIf="filteredSkillOptions.length > 0" class="suggestions">
@@ -101,24 +79,27 @@
           <th>Name</th>
           <th>Phone number</th>
           <th>Email</th>
+          <th>job position</th>
           <th>Skills</th>
           <th>Experience</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let resume of filteredResumes; let i = index">
+       <tr *ngFor="let resume of filteredResumes; let i = index" (click)="goToResumeDetail(resume.id)">
           <td>{{ resume.name }}</td>
           <td>{{ resume.phone }}</td>
           <td>{{ resume.email }}</td>
+          <td>{{resume.jobPosition}}</td>
           <td>
             <span *ngFor="let skill of resume.skills" class="tag">{{ skill }}</span>
           </td>
           <td>{{ resume.totalExperienceYears }} years</td>
           <td>
-            <i class="fa fa-trash delete-icon" (click)="deleteResume(i)"></i>
+            <i class="fa fa-trash delete-icon" (click)="deleteResume(i); $event.stopPropagation();"></i>
           </td>
         </tr>
+
       </tbody>
     </table>
   </main>
