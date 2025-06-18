@@ -1,80 +1,277 @@
-.selected-container {
-  background: #111;
-  min-height: 100vh;
-  color: white;
-  text-align: center;
-  padding: 3rem 1rem;
+/* --- Variables for a Clean, Light Theme --- */
+// Primary/Accent Colors
+$color-primary-blue: #007bff;   // A standard, professional blue
+$color-accent-green: #28a745;   // A common success green for certain elements
+$color-danger-red: #dc3545;     // Standard red for delete/error
 
-  h2 {
-    margin-bottom: 2rem;
-  }
+// Neutral Colors
+$color-background-white: #ffffff;   // Pure white for card backgrounds
+$color-background-light-grey: #f8f9fa; // Very light gray for outer backgrounds or subtle elements
+$color-border-light: #dee2e6;       // Light gray for borders
+$color-text-dark: #343a40;          // Dark gray for primary text
+$color-text-muted: #6c757d;         // Muted gray for secondary text/placeholders
+
+// Spacing & Sizes
+$padding-xs: 0.5rem;   // 8px
+$padding-sm: 0.75rem;  // 12px
+$padding-md: 1rem;     // 16px
+$padding-lg: 1.5rem;   // 24px
+
+$margin-sm: 0.5rem;    // 8px
+$margin-md: 1rem;      // 16px
+$margin-lg: 1.5rem;    // 24px
+
+// Border Radius
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 12px;
+
+// Transitions
+$transition-speed-fast: 0.15s ease-in-out;
+$transition-speed-normal: 0.3s ease-in-out;
+
+// Box Shadows (subtle for light theme)
+$shadow-light: 0 2px 5px rgba(0, 0, 0, 0.05);
+$shadow-medium: 0 5px 15px rgba(0, 0, 0, 0.1);
+$shadow-button: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+/* --- Main Container Styling --- */
+.selected-container {
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  max-width: 500px; /* Adjust width as needed */
+  margin: 50px auto; /* Center on page */
+  background-color: $color-background-white;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-medium; /* Main container shadow */
+  padding: $padding-lg * 1.5; /* Generous internal padding */
+  color: $color-text-dark;
+  text-align: center;
+  border: 1px solid $color-border-light;
+  box-sizing: border-box; /* Ensures padding/border included in width */
 }
 
+h2 {
+  color: $color-primary-blue; /* Highlighted title */
+  margin-bottom: $margin-lg;
+  font-size: 1.8em;
+  font-weight: 600;
+  letter-spacing: 0.02em; /* Slightly wider spacing for headings */
+}
+
+/* --- File Box - Main Upload Area --- */
 .file-box {
-  background: #fff;
-  color: #000;
-  border-radius: 2rem;
-  padding: 2rem;
-  width: 90%;
-  max-width: 400px;
-  margin: 0 auto 2rem;
+  background-color: $color-background-light-grey; /* Light grey background for the box */
+  border: 2px dashed $color-border-light; /* Dashed border for visual cue */
+  border-radius: $border-radius-md;
+  padding: $padding-lg $padding-md; /* Ample padding inside the box */
+  margin-bottom: $margin-lg;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $margin-md; /* Spacing between elements inside file-box */
+  transition: border-color $transition-speed-normal, background-color $transition-speed-normal;
+
+  &:hover {
+    border-color: lighten($color-primary-blue, 20%); /* Lighter blue on hover */
+    background-color: lighten($color-background-light-grey, 1%);
+  }
 
   img {
-    margin-bottom: 1rem;
+    width: 70px; /* Size of the GIF icon */
+    height: 70px;
+    opacity: 0.8; /* Slightly faded to blend */
+    margin-bottom: $margin-sm;
   }
 
-  .file-name {
-    font-weight: 600;
-    margin-bottom: 0.5rem;
+  .file-name { /* "No files selected." text */
+    color: $color-text-muted;
+    font-size: 1.05em;
+    margin-bottom: $margin-md;
   }
 
-  .ready-text {
-    color: #28b463;
-    margin-bottom: 1.5rem;
+  ul { /* List of selected files */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%; /* Take full width of file-box */
+    max-height: 180px; /* Limit height for scrollability */
+    overflow-y: auto; /* Add scrollbar if list is too long */
+    text-align: left; /* Align text left within list items */
+    padding-right: $margin-sm; /* Space for scrollbar */
+
+    /* Custom scrollbar for Webkit browsers */
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+    &::-webkit-scrollbar-track {
+      background: $color-background-light-grey;
+      border-radius: $border-radius-md;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: $color-border-light;
+      border-radius: $border-radius-md;
+      &:hover {
+        background: darken($color-border-light, 15%);
+      }
+    }
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: $color-background-white; /* White background for each item */
+      padding: $padding-sm $padding-md;
+      border-radius: $border-radius-sm;
+      margin-bottom: $margin-sm; /* Space between list items */
+      font-size: 0.95em;
+      color: $color-text-dark;
+      border: 1px solid $color-border-light;
+      box-shadow: $shadow-light; /* Subtle shadow for each item */
+      transition: background-color $transition-speed-fast, transform $transition-speed-fast;
+
+      &:last-child {
+        margin-bottom: 0; /* No margin on the last item */
+      }
+
+      &:hover {
+        background-color: lighten($color-background-light-grey, 2%);
+        transform: translateY(-2px); /* Slight lift on hover */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      }
+
+      /* Style for the '📄' icon */
+      span:first-child {
+        font-size: 1.1em;
+        margin-right: $margin-sm;
+        color: $color-primary-blue; /* Blue icon to match theme */
+      }
+
+      /* Ensure file name and size take available space and truncate */
+      p {
+        flex-grow: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin: 0; /* Remove default paragraph margin */
+      }
+    }
   }
 
-  .select-btn {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    background: #28b463;
-    color: white;
-    font-weight: bold;
-    border-radius: 0.5rem;
+  /* Delete Button (❌) */
+  li button {
+    background: none;
+    border: none;
+    color: $color-danger-red; /* Red 'X' for delete */
+    font-size: 1.2em;
     cursor: pointer;
-    transition: background 0.3s;
+    padding: $padding-xs;
+    border-radius: 50%; /* Make it round */
+    transition: background-color $transition-speed-fast, color $transition-speed-fast, transform $transition-speed-fast;
+    flex-shrink: 0; /* Prevent button from shrinking */
 
     &:hover {
-      background: #1fa855;
+      background-color: rgba($color-danger-red, 0.1); /* Light red background on hover */
+      color: darken($color-danger-red, 10%);
+      transform: scale(1.1); /* Slight zoom effect */
+    }
+  }
+
+  /* Select files Button (Label) */
+  .select-btn {
+    display: inline-flex; /* Align content inside */
+    align-items: center;
+    justify-content: center;
+    background-color: $color-primary-blue;
+    color: $color-background-white;
+    padding: $padding-md $padding-lg;
+    border-radius: $border-radius-md;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.05em;
+    transition: background-color $transition-speed-normal, transform $transition-speed-fast, box-shadow $transition-speed-normal;
+    border: none;
+    box-shadow: $shadow-button; /* Add subtle shadow */
+    margin-top: $margin-md; /* Space above the button */
+
+    &:hover {
+      background-color: darken($color-primary-blue, 8%);
+      transform: translateY(-2px); /* Lift effect on hover */
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    &:active {
+      transform: translateY(0); /* Press down effect on click */
+      box-shadow: $shadow-light;
+    }
+
+    input[type="file"] {
+      // Visually hide the input, but keep it accessible
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
     }
   }
 }
 
+/* --- Action Buttons - Back and Continue --- */
 .action-buttons {
   display: flex;
-  justify-content: center;
-  gap: 1rem;
+  justify-content: space-between;
+  gap: $margin-lg; /* Space between buttons */
+  margin-top: $margin-lg * 1.5; /* More space above action buttons */
 
   button {
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 0.5rem;
-    font-weight: bold;
+    flex: 1; /* Make buttons share available space equally */
+    padding: $padding-md * 1.1 $padding-lg; /* Taller buttons */
+    border-radius: $border-radius-md;
+    font-size: 1.1em;
+    font-weight: 600;
     cursor: pointer;
-    font-size: 1rem;
+    transition: background-color $transition-speed-normal, transform $transition-speed-fast, box-shadow $transition-speed-normal;
+    border: none;
+    box-shadow: $shadow-button; /* Consistent button shadow */
   }
 
   .back-btn {
-    background: transparent;
-    border: 2px solid white;
-    color: white;
+    background-color: $color-background-light-grey;
+    color: $color-text-dark;
+    border: 1px solid $color-border-light;
+
+    &:hover {
+      background-color: darken($color-background-light-grey, 5%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+    &:active {
+      transform: translateY(0);
+      box-shadow: $shadow-light;
+    }
   }
 
   .continue-btn {
-    background: #28b463;
-    color: white;
+    background-color: $color-primary-blue;
+    color: $color-background-white;
 
-    &:hover {
-      background: #1fa855;
+    &:hover:not([disabled]) {
+      background-color: darken($color-primary-blue, 8%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    &:disabled {
+      background-color: lighten($color-primary-blue, 25%);
+      cursor: not-allowed;
+      opacity: 0.7;
+      box-shadow: none;
+    }
+    &:active:not([disabled]) {
+      transform: translateY(0);
+      box-shadow: $shadow-light;
     }
   }
 }

@@ -31,13 +31,15 @@ export class SelectedFilesComponent {
     return this.selectedFiles.map(file => file.name);
   }
 
-  onSelectNewFiles(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      const validFiles = Array.from(input.files).filter(file => file.type === 'application/pdf');
-      this.selectedFiles.push(...validFiles);
-    }
+onSelectNewFiles(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  if (input.files) {
+    const newFiles = Array.from(input.files).filter(file => file.type === 'application/pdf');
+    const totalFiles = this.selectedFiles.length + newFiles.length;
+    this.selectedFiles.push(...newFiles);
   }
+}
+
 
   removeFile(index: number): void {
     this.selectedFiles.splice(index, 1);

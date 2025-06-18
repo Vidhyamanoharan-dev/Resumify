@@ -55,43 +55,46 @@ export class ParsedresumeComponent implements OnInit, OnDestroy {
     });
   }
 
-  fetchResumes(): void {
-    const userIdStr = localStorage.getItem('userId');
-    if (!userIdStr) return;
+ fetchResumes(): void {
+  const userIdStr = localStorage.getItem('userId');
+  if (!userIdStr) return;
 
-    const userId = parseInt(userIdStr, 10);
-    this.uploadService.getUserResumes(userId).subscribe({
-      next: (resumes: any[] | null) => {
-        if (!resumes || !Array.isArray(resumes)) {
-          this.resumes = [];
-          console.log(resumes);
-          return;
-        }
+  const userId = parseInt(userIdStr, 10);
+  this.uploadService.getUserResumes(userId).subscribe({
+    next: (resumes: any[] | null) => {
+      console.log("Raw response from backend:", resumes);  
 
-        this.resumes = resumes.map(r => ({
-          id: r.id,
-          name: r.name,
-          email: r.email,
-          phone: r.phone,
-          jobPosition:r.jobPosition,
-          totalExperienceYears: r.totalExperienceYears,
-          skills: typeof r.skills === 'string'
-            ? r.skills.split(',').map((s: string) => s.trim().toLowerCase())
-            : r.skills ?? [],
-          imageUrl: undefined
-        }));
-
-        const allSkills = this.resumes.flatMap(r => r.skills);
-        this.allSkills = Array.from(new Set(allSkills));
-
-        // Load images for each resume
-        this.resumes.forEach(r => this.loadResumeImage(r.id));
-      },
-      error: (err) => {
-        console.error('Failed to fetch resumes', err);
+      if (!resumes || !Array.isArray(resumes)) {
+        this.resumes = [];
+        return;
       }
-    });
-  }
+
+      this.resumes = resumes.map(r => ({
+        id: r.id,
+        name: r.name,
+        email: r.email,
+        phone: r.phone,
+        jobPosition: r.jobPosition,
+        totalExperienceYears: r.totalExperienceYears,
+        skills: typeof r.skills === 'string'
+          ? r.skills.split(',').map((s: string) => s.trim().toLowerCase())
+          : r.skills ?? [],
+        imageUrl: undefined
+      }));
+
+      console.log("Mapped resumes for frontend:", this.resumes); 
+      
+
+      const allSkills = this.resumes.flatMap(r => r.skills);
+      this.allSkills = Array.from(new Set(allSkills));
+
+      this.resumes.forEach(r => this.loadResumeImage(r.id));
+    },
+    error: (err) => {
+      console.error('Failed to fetch resumes', err);
+    }
+  });
+}
 
   loadResumeImage(resumeId: number): void {
     this.uploadService.getResumeImage(resumeId).subscribe({
@@ -310,7 +313,7 @@ export class ParsedresumeComponent implements OnInit, OnDestroy {
   }
 
   goToResumeDetail(id: number): void {
-  this.router.navigate(['/resume-preview', id]);
+  this.router.navigate(['/resume-preview',id]);
 }
 
   clearFilters(): void {

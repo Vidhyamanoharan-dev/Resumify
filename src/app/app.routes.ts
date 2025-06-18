@@ -28,10 +28,11 @@ export const routes: Routes = [
 
   // ✅ Resume Preview route (new)
   {
-    path: 'resume-preview',
+    path: 'resume-preview/:id',
     loadComponent: () => import('./profileview/profileview.component').then(m => m.ProfileviewComponent),
     canActivate: [AuthGuard]
-  },
+  }
+  ,
 
   // ✅ Feature routes with lazy loading + auth guard
   {

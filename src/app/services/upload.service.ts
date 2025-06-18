@@ -56,6 +56,6 @@ export class UploadService {
 
   }
   getResumePreview(userId: number, resumeId: number): Observable<any> {
-  return this.http.get<any>(`${this.baseUrl}/resumes/user/${userId}/preview/${resumeId}`);
+  return this.http.get<any>(`${this.baseUrl}/resumes/user/${userId}/resume/${resumeId}`);
 }
 }

@@ -20,11 +20,15 @@ constructor(
     private uploadService: UploadService
   ) {}
   ngOnInit(): void {
-    this.resumeId = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
+  this.route.paramMap.subscribe(params => {
+    const idParam = params.get('id');
     const userIdStr = localStorage.getItem('userId');
-    if (!userIdStr) return;
 
+    if (!idParam || !userIdStr) return;
+
+    this.resumeId = parseInt(idParam, 10);
     const userId = parseInt(userIdStr, 10);
+
     this.uploadService.getResumePreview(userId, this.resumeId).subscribe({
       next: (res) => {
         this.resume = res;
@@ -36,5 +40,6 @@ constructor(
         console.error('Failed to load resume:', err);
       }
     });
-  }
+  });
+}
 }

@@ -1,4 +1,4 @@
-<div class="resume-preview-container">
+<div class="resume-preview-container" *ngIf="resume">
   <div class="resume-card">
     <div class="resume-header">
       <img [src]="resume.imageUrl" alt="Resume Image" />
@@ -27,7 +27,7 @@
       </ul>
     </div>
 
-    <div class="resume-section" *ngIf="resume.education.length > 0">
+    <div class="resume-section" *ngIf="resume.education?.length > 0">
       <h3>Education</h3>
       <ul>
         <li *ngFor="let edu of resume.education">
@@ -36,7 +36,7 @@
       </ul>
     </div>
 
-    <div class="resume-section" *ngIf="resume.experience.length > 0">
+    <div class="resume-section" *ngIf="resume.experience?.length > 0">
       <h3>Experience</h3>
       <ul>
         <li *ngFor="let exp of resume.experience">
