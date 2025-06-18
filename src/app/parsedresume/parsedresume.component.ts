@@ -3,6 +3,7 @@ import { NgIf, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UploadService } from '../services/upload.service';
 import { Router } from '@angular/router';
+import { LoadingService } from '../services/LoadingService';
 
 interface Resume {
   id: number;
@@ -40,7 +41,7 @@ export class ParsedresumeComponent implements OnInit, OnDestroy {
 
   isDeleting: boolean = false;  // To prevent double delete clicks
 
-  constructor(private uploadService: UploadService, private router: Router) { }
+  constructor(private uploadService: UploadService, private router: Router, private loadingService: LoadingService) { }
 
   ngOnInit(): void {
     this.fetchResumes();
@@ -325,9 +326,9 @@ export class ParsedresumeComponent implements OnInit, OnDestroy {
 
   triggerFileUpload(): void {
     this.fileInputRef.nativeElement.click();
-  }
 
-  onFileSelected(event: Event): void {
+  }
+onFileSelected(event: Event): void {
   const files = (event.target as HTMLInputElement).files;
   if (!files || files.length === 0) return;
 
@@ -338,13 +339,19 @@ export class ParsedresumeComponent implements OnInit, OnDestroy {
   }
 
   const userId = parseInt(userIdStr, 10);
+  const validFiles = Array.from(files).filter(file => file.type === 'application/pdf');
 
-  Array.from(files).forEach((file) => {
-    if (file.type !== 'application/pdf') {
-      console.warn(`${file.name} is not a PDF, skipping.`);
-      return;
-    }
+  if (validFiles.length === 0) {
+    alert('No valid PDF files selected.');
+    return;
+  }
 
+  this.loadingService.setLoading(true); // 🟡 Start loader before upload begins
+
+  let uploadedCount = 0;
+  const totalFiles = validFiles.length;
+
+  validFiles.forEach((file) => {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('userId', userId.toString());
@@ -352,15 +359,26 @@ export class ParsedresumeComponent implements OnInit, OnDestroy {
     this.uploadService.uploadResume(userId, formData).subscribe({
       next: () => {
         console.log(`Resume ${file.name} uploaded successfully`);
-        this.fetchResumes();
+        uploadedCount++;
+
+        if (uploadedCount === totalFiles) {
+          this.fetchResumes(); // fetch updated data
+          this.loadingService.setLoading(false); // 🟢 Stop loader when all uploads finish
+        }
       },
       error: (error) => {
         console.error(`Upload failed for ${file.name}:`, error);
         alert(`Failed to upload ${file.name}.`);
+        uploadedCount++;
+
+        // Ensure loader still ends even if one fails
+        if (uploadedCount === totalFiles) {
+          this.fetchResumes();
+          this.loadingService.setLoading(false);
+        }
       }
     });
   });
-  
 }
 }
 

@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ResumeTransferService } from '../services/resume-transfer.service';
 
-
 @Component({
   selector: 'app-upload',
   standalone: true,
@@ -13,33 +12,38 @@ import { ResumeTransferService } from '../services/resume-transfer.service';
   styleUrls: ['./browseresume.component.scss']
 })
 export class BrowseResumeComponent {
-  selectedFile: File | null = null;
+  selectedFiles: File[] = [];
   dragOver = false;
 
   constructor(
     private router: Router,
-    private resumeTransferService: ResumeTransferService // 👈 inject
+    private resumeTransferService: ResumeTransferService
   ) {}
 
   onFileDropped(event: DragEvent) {
     event.preventDefault();
     this.dragOver = false;
-    const file = event.dataTransfer?.files?.[0];
-    if (file && file.type === 'application/pdf') {
-      this.selectedFile = file;
-      this.resumeTransferService.setFile(file); // 👈 save file in service
-      this.router.navigate(['/selectedfiles'], { state: { fileName: file.name } });
+    const files = event.dataTransfer?.files;
+    if (files) {
+      const validFiles = Array.from(files).filter(file => file.type === 'application/pdf');
+      if (validFiles.length > 0) {
+        this.selectedFiles = validFiles;
+        this.resumeTransferService.setFiles(validFiles);
+        this.router.navigate(['/selectedfiles'], { state: { fileNames: validFiles.map(f => f.name) } });
+      }
     }
   }
 
   onBrowseFile(event: Event) {
     const input = event.target as HTMLInputElement;
-    const file = input.files?.[0];
-    if (file && file.type === 'application/pdf') {
-      this.selectedFile = file;
-      this.resumeTransferService.setFile(file);
-      console.log(file);// 👈 save file in service
-      this.router.navigate(['/selectedfiles'], { state: { fileName: file.name ,data:file } });
+    const files = input.files;
+    if (files) {
+      const validFiles = Array.from(files).filter(file => file.type === 'application/pdf');
+      if (validFiles.length > 0) {
+        this.selectedFiles = validFiles;
+        this.resumeTransferService.setFiles(validFiles);
+        this.router.navigate(['/selectedfiles'], { state: { fileNames: validFiles.map(f => f.name) } });
+      }
     }
   }
 

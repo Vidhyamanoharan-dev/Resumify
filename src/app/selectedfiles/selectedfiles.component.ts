@@ -21,9 +21,9 @@ export class SelectedFilesComponent {
     private resumeTransferService: ResumeTransferService,
     private loadingService: LoadingService
   ) {
-    const file = this.resumeTransferService.getFile();
-    if (file) {
-      this.selectedFiles = [file];
+    const files = this.resumeTransferService.getFiles();
+    if (files && files.length > 0) {
+      this.selectedFiles = files;
     }
   }
 
@@ -31,18 +31,18 @@ export class SelectedFilesComponent {
     return this.selectedFiles.map(file => file.name);
   }
 
-onSelectNewFiles(event: Event): void {
-  const input = event.target as HTMLInputElement;
-  if (input.files) {
-    const newFiles = Array.from(input.files).filter(file => file.type === 'application/pdf');
-    const totalFiles = this.selectedFiles.length + newFiles.length;
-    this.selectedFiles.push(...newFiles);
+  onSelectNewFiles(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files) {
+      const newFiles = Array.from(input.files).filter(file => file.type === 'application/pdf');
+      this.selectedFiles.push(...newFiles);
+      this.resumeTransferService.setFiles(this.selectedFiles);
+    }
   }
-}
-
 
   removeFile(index: number): void {
     this.selectedFiles.splice(index, 1);
+    this.resumeTransferService.setFiles(this.selectedFiles);
   }
 
   formatFileSize(bytes: number): string {
@@ -70,8 +70,9 @@ onSelectNewFiles(event: Event): void {
     const userId = Number(userIdStr);
     const formData = new FormData();
 
+    // 👇 Match Spring Boot @RequestParam("file") MultipartFile[] format
     this.selectedFiles.forEach(file => {
-      formData.append('file', file); // Must match backend @RequestParam("files")
+      formData.append('file', file);
     });
 
     this.loadingService.setLoading(true);
@@ -79,7 +80,7 @@ onSelectNewFiles(event: Event): void {
     this.uploadService.uploadResume(userId, formData).subscribe({
       next: (res) => {
         console.log('Upload successful:', res);
-        this.resumeTransferService.clearFile();
+        this.resumeTransferService.clearFiles();
         this.router.navigate(['/parsedresumes'], {
           state: { fileNames: this.fileNames }
         });
