@@ -1,211 +1,197 @@
-/* --- Variables for a Clean, Light Theme --- */
+/* === Green and White Upload Component Theme === */
+
 // Primary/Accent Colors
-$color-primary-blue: #007bff;   // A standard, professional blue
-$color-accent-green: #28a745;   // A common success green for certain elements
-$color-danger-red: #dc3545;     // Standard red for delete/error
+$color-primary-green: #28a745;  // Main green color
+$color-accent-light-green: #a2e3b2; // Lighter green shade
+$color-danger-red: #dc3545;     // Red for delete/error
 
 // Neutral Colors
-$color-background-white: #ffffff;   // Pure white for card backgrounds
-$color-background-light-grey: #f8f9fa; // Very light gray for outer backgrounds or subtle elements
-$color-border-light: #dee2e6;       // Light gray for borders
-$color-text-dark: #343a40;          // Dark gray for primary text
-$color-text-muted: #6c757d;         // Muted gray for secondary text/placeholders
+$color-white: #ffffff;
+$color-light-grey: #f8f9fa;
+$color-border: #dcdcdc;
+$color-text: #2e2e2e;
+$color-muted: #6c757d;
 
-// Spacing & Sizes
-$padding-xs: 0.5rem;   // 8px
-$padding-sm: 0.75rem;  // 12px
-$padding-md: 1rem;     // 16px
-$padding-lg: 1.5rem;   // 24px
+// Spacing
+$padding-xs: 0.5rem;
+$padding-sm: 0.75rem;
+$padding-md: 1rem;
+$padding-lg: 1.5rem;
 
-$margin-sm: 0.5rem;    // 8px
-$margin-md: 1rem;      // 16px
-$margin-lg: 1.5rem;    // 24px
+$margin-sm: 0.5rem;
+$margin-md: 1rem;
+$margin-lg: 1.5rem;
 
-// Border Radius
-$border-radius-sm: 4px;
-$border-radius-md: 8px;
-$border-radius-lg: 12px;
+// Radius
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-lg: 12px;
 
 // Transitions
-$transition-speed-fast: 0.15s ease-in-out;
-$transition-speed-normal: 0.3s ease-in-out;
+$transition-fast: 0.2s ease;
+$transition-normal: 0.35s ease;
 
-// Box Shadows (subtle for light theme)
-$shadow-light: 0 2px 5px rgba(0, 0, 0, 0.05);
-$shadow-medium: 0 5px 15px rgba(0, 0, 0, 0.1);
-$shadow-button: 0 4px 8px rgba(0, 0, 0, 0.1);
+// Shadows
+$shadow-light: 0 2px 6px rgba(0, 0, 0, 0.05);
+$shadow-medium: 0 6px 12px rgba(0, 0, 0, 0.1);
 
-/* --- Main Container Styling --- */
+/* === Main Upload Container === */
 .selected-container {
-  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-  max-width: 500px; /* Adjust width as needed */
-  margin: 50px auto; /* Center on page */
-  background-color: $color-background-white;
-  border-radius: $border-radius-lg;
-  box-shadow: $shadow-medium; /* Main container shadow */
-  padding: $padding-lg * 1.5; /* Generous internal padding */
-  color: $color-text-dark;
+  max-width: 520px;
+  margin: 40px auto;
+  padding: $padding-lg * 1.5;
+  background-color: $color-white;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-medium;
+  border: 1px solid $color-border;
   text-align: center;
-  border: 1px solid $color-border-light;
-  box-sizing: border-box; /* Ensures padding/border included in width */
+  color: $color-text;
+  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
 }
 
+/* === Heading === */
 h2 {
-  color: $color-primary-blue; /* Highlighted title */
-  margin-bottom: $margin-lg;
+  color: $color-primary-green;
   font-size: 1.8em;
+  margin-bottom: $margin-lg;
   font-weight: 600;
-  letter-spacing: 0.02em; /* Slightly wider spacing for headings */
 }
 
-/* --- File Box - Main Upload Area --- */
+/* === File Upload Area === */
 .file-box {
-  background-color: $color-background-light-grey; /* Light grey background for the box */
-  border: 2px dashed $color-border-light; /* Dashed border for visual cue */
-  border-radius: $border-radius-md;
-  padding: $padding-lg $padding-md; /* Ample padding inside the box */
+  background: $color-light-grey;
+  border: 2px dashed $color-border;
+  border-radius: $radius-md;
+  padding: $padding-lg $padding-md;
   margin-bottom: $margin-lg;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: $margin-md; /* Spacing between elements inside file-box */
-  transition: border-color $transition-speed-normal, background-color $transition-speed-normal;
+  gap: $margin-md;
+  transition: border-color $transition-normal, background-color $transition-normal;
 
   &:hover {
-    border-color: lighten($color-primary-blue, 20%); /* Lighter blue on hover */
-    background-color: lighten($color-background-light-grey, 1%);
+    border-color: lighten($color-primary-green, 15%);
+    background-color: lighten($color-light-grey, 2%);
   }
 
   img {
-    width: 70px; /* Size of the GIF icon */
+    width: 70px;
     height: 70px;
-    opacity: 0.8; /* Slightly faded to blend */
     margin-bottom: $margin-sm;
+    opacity: 0.8;
   }
 
-  .file-name { /* "No files selected." text */
-    color: $color-text-muted;
+  .file-name {
+    color: $color-muted;
     font-size: 1.05em;
     margin-bottom: $margin-md;
   }
 
-  ul { /* List of selected files */
+  ul {
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
     list-style: none;
-    padding: 0;
+    padding: 0 $margin-sm 0 0;
     margin: 0;
-    width: 100%; /* Take full width of file-box */
-    max-height: 180px; /* Limit height for scrollability */
-    overflow-y: auto; /* Add scrollbar if list is too long */
-    text-align: left; /* Align text left within list items */
-    padding-right: $margin-sm; /* Space for scrollbar */
+    text-align: left;
 
-    /* Custom scrollbar for Webkit browsers */
     &::-webkit-scrollbar {
       width: 8px;
     }
     &::-webkit-scrollbar-track {
-      background: $color-background-light-grey;
-      border-radius: $border-radius-md;
+      background: $color-light-grey;
+      border-radius: $radius-md;
     }
     &::-webkit-scrollbar-thumb {
-      background: $color-border-light;
-      border-radius: $border-radius-md;
+      background: $color-border;
+      border-radius: $radius-md;
       &:hover {
-        background: darken($color-border-light, 15%);
+        background: darken($color-border, 15%);
       }
     }
 
     li {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: $color-background-white; /* White background for each item */
+      background: $color-white;
+      border: 1px solid $color-border;
+      border-radius: $radius-sm;
       padding: $padding-sm $padding-md;
-      border-radius: $border-radius-sm;
-      margin-bottom: $margin-sm; /* Space between list items */
+      margin-bottom: $margin-sm;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       font-size: 0.95em;
-      color: $color-text-dark;
-      border: 1px solid $color-border-light;
-      box-shadow: $shadow-light; /* Subtle shadow for each item */
-      transition: background-color $transition-speed-fast, transform $transition-speed-fast;
-
-      &:last-child {
-        margin-bottom: 0; /* No margin on the last item */
-      }
+      color: $color-text;
+      box-shadow: $shadow-light;
+      transition: background-color $transition-fast, transform $transition-fast;
 
       &:hover {
-        background-color: lighten($color-background-light-grey, 2%);
-        transform: translateY(-2px); /* Slight lift on hover */
+        background-color: lighten($color-light-grey, 3%);
+        transform: translateY(-2px);
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
       }
 
-      /* Style for the '📄' icon */
       span:first-child {
+        color: $color-primary-green;
         font-size: 1.1em;
         margin-right: $margin-sm;
-        color: $color-primary-blue; /* Blue icon to match theme */
       }
 
-      /* Ensure file name and size take available space and truncate */
       p {
         flex-grow: 1;
-        white-space: nowrap;
         overflow: hidden;
+        white-space: nowrap;
         text-overflow: ellipsis;
-        margin: 0; /* Remove default paragraph margin */
+        margin: 0;
+      }
+
+      button {
+        background: none;
+        border: none;
+        color: $color-danger-red;
+        font-size: 1.2em;
+        cursor: pointer;
+        padding: $padding-xs;
+        border-radius: 50%;
+        flex-shrink: 0;
+        transition: all $transition-fast;
+
+        &:hover {
+          background-color: rgba($color-danger-red, 0.1);
+          transform: scale(1.1);
+        }
       }
     }
   }
 
-  /* Delete Button (❌) */
-  li button {
-    background: none;
-    border: none;
-    color: $color-danger-red; /* Red 'X' for delete */
-    font-size: 1.2em;
-    cursor: pointer;
-    padding: $padding-xs;
-    border-radius: 50%; /* Make it round */
-    transition: background-color $transition-speed-fast, color $transition-speed-fast, transform $transition-speed-fast;
-    flex-shrink: 0; /* Prevent button from shrinking */
-
-    &:hover {
-      background-color: rgba($color-danger-red, 0.1); /* Light red background on hover */
-      color: darken($color-danger-red, 10%);
-      transform: scale(1.1); /* Slight zoom effect */
-    }
-  }
-
-  /* Select files Button (Label) */
   .select-btn {
-    display: inline-flex; /* Align content inside */
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    background-color: $color-primary-blue;
-    color: $color-background-white;
+    background-color: $color-primary-green;
+    color: $color-white;
     padding: $padding-md $padding-lg;
-    border-radius: $border-radius-md;
-    cursor: pointer;
+    border-radius: $radius-md;
     font-weight: 600;
     font-size: 1.05em;
-    transition: background-color $transition-speed-normal, transform $transition-speed-fast, box-shadow $transition-speed-normal;
+    cursor: pointer;
     border: none;
-    box-shadow: $shadow-button; /* Add subtle shadow */
-    margin-top: $margin-md; /* Space above the button */
+    box-shadow: $shadow-light;
+    margin-top: $margin-md;
+    transition: background-color $transition-normal, transform $transition-fast;
 
     &:hover {
-      background-color: darken($color-primary-blue, 8%);
-      transform: translateY(-2px); /* Lift effect on hover */
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      background-color: darken($color-primary-green, 8%);
+      transform: translateY(-2px);
     }
 
     &:active {
-      transform: translateY(0); /* Press down effect on click */
-      box-shadow: $shadow-light;
+      transform: translateY(0);
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     input[type="file"] {
-      // Visually hide the input, but keep it accessible
       position: absolute;
       width: 1px;
       height: 1px;
@@ -218,60 +204,50 @@ h2 {
   }
 }
 
-/* --- Action Buttons - Back and Continue --- */
+/* === Navigation Buttons === */
 .action-buttons {
   display: flex;
   justify-content: space-between;
-  gap: $margin-lg; /* Space between buttons */
-  margin-top: $margin-lg * 1.5; /* More space above action buttons */
+  gap: $margin-md;
+  margin-top: $margin-lg;
 
   button {
-    flex: 1; /* Make buttons share available space equally */
-    padding: $padding-md * 1.1 $padding-lg; /* Taller buttons */
-    border-radius: $border-radius-md;
-    font-size: 1.1em;
+    flex: 1;
+    padding: $padding-md $padding-lg;
+    border-radius: $radius-md;
+    font-size: 1.05em;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color $transition-speed-normal, transform $transition-speed-fast, box-shadow $transition-speed-normal;
+    transition: background-color $transition-normal, transform $transition-fast;
+    box-shadow: $shadow-light;
     border: none;
-    box-shadow: $shadow-button; /* Consistent button shadow */
   }
 
   .back-btn {
-    background-color: $color-background-light-grey;
-    color: $color-text-dark;
-    border: 1px solid $color-border-light;
+    background-color: $color-light-grey;
+    color: $color-text;
+    border: 1px solid $color-border;
 
     &:hover {
-      background-color: darken($color-background-light-grey, 5%);
+      background-color: darken($color-light-grey, 5%);
       transform: translateY(-2px);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    }
-    &:active {
-      transform: translateY(0);
-      box-shadow: $shadow-light;
     }
   }
 
   .continue-btn {
-    background-color: $color-primary-blue;
-    color: $color-background-white;
+    background-color: $color-primary-green;
+    color: $color-white;
 
     &:hover:not([disabled]) {
-      background-color: darken($color-primary-blue, 8%);
+      background-color: darken($color-primary-green, 8%);
       transform: translateY(-2px);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     }
 
     &:disabled {
-      background-color: lighten($color-primary-blue, 25%);
+      background-color: lighten($color-primary-green, 30%);
       cursor: not-allowed;
       opacity: 0.7;
       box-shadow: none;
-    }
-    &:active:not([disabled]) {
-      transform: translateY(0);
-      box-shadow: $shadow-light;
     }
   }
 }
