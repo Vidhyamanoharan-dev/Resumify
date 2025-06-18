@@ -1,6 +1,15 @@
 <div class="parser-container">
   <aside class="sidebar">
+    
     <h3>Uploaded Resumes</h3>
+    <!-- Upload Section -->
+    <div class="upload-box" (click)="triggerFileUpload()">
+      <p>Click here to <strong>upload your file</strong> or drag</p>
+      <input #fileInput type="file" accept="application/pdf" multiple (change)="onFileSelected($event)"
+        style="display: none" />
+    </div>
+    <br>
+    <br>
     <div class="resume-list">
       <div class="resume-item" *ngFor="let resume of resumes">
         <a *ngIf="resume.imageUrl; else pdfIcon" [href]="resume.imageUrl" [download]="resume.name + '.png'"
@@ -17,12 +26,7 @@
 
     </div>
 
-    <!-- Upload Section -->
-    <div class="upload-box" (click)="triggerFileUpload()">
-      <p>Click here to <strong>upload your file</strong> or drag</p>
-      <input #fileInput type="file" accept="application/pdf" multiple (change)="onFileSelected($event)"
-        style="display: none" />
-    </div>
+    
   </aside>
 
   <main class="main-content">
@@ -35,7 +39,7 @@
       <div class="dropdown-wrapper">
         <button (click)="toggleSortDropdown()">Sort</button>
         <ul *ngIf="showSortDropdown" class="dropdown">
-          <li (click)="setExperienceRange('none')">NONE</li>
+          <li (click)="setExperienceRange('clear')">Clear</li>
           <li (click)="setExperienceRange('0-1')">0 - 1 years</li>
           <li (click)="setExperienceRange('1-2')">1 - 2 years</li>
           <li (click)="setExperienceRange('2-3')">2 - 3 years</li>

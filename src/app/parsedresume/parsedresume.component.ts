@@ -166,7 +166,7 @@ export class ParsedresumeComponent implements OnInit, OnDestroy {
     let endExp = 100.0;
 
     switch (this.selectedExperienceRange) {
-      case 'none': this.fetchResumes(); break;
+      case 'clear': this.fetchResumes(); break;
       case '0-1': startExp = 0.0; endExp = 1; break;
       case '1-2': startExp = 1; endExp = 2; break;
       case '2-3': startExp = 2; endExp = 3; break;
