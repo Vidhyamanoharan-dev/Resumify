@@ -6,9 +6,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UploadService {
-  getResumePreview(userId: number, resumeId: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/resumes/preview/${userId}/${resumeId}`);
-  }
 
   private baseUrl = 'http://localhost:8080';
 
@@ -57,5 +54,8 @@ export class UploadService {
     return this.http.get(`${this.baseUrl}/resumes/image/${resumeId}`, {
       responseType: 'blob', // Important to get binary data as Blob
     });
+  }
+  getResumePreview(userId: number, resumeId: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/resumes/preview/${userId}/${resumeId}`);
   }
 }

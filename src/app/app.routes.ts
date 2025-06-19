@@ -36,6 +36,13 @@ export const routes: Routes = [
       ),
     canActivate: [AuthGuard]
   },
+  // ✅ Resume Preview route (new)
+  {
+    path: 'resume-preview/:id',
+    loadComponent: () => import('./profileview/profileview.component').then(m => m.ProfileviewComponent),
+    canActivate: [AuthGuard]
+  }
+  ,
   {
     path: 'parsedresumes',
     loadComponent: () =>
