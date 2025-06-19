@@ -1,24 +1,52 @@
 <div class="upload-container">
-  <h2>How do you want to upload your resume?</h2>
-  <p>Drag & Drop or upload your Resume</p>
+  <div class="upload-content">
+    <h2 class="upload-title">How do you want to upload your resume?</h2>
+    <p class="upload-subtitle">Drag & drop or select your resume file</p>
 
-  <div
-    class="upload-box"
-    [class.drag-over]="dragOver"
-    (drop)="onFileDropped($event)"
-    (dragover)="allowDrop($event)"
-    (dragleave)="clearDragOver()"
-  >
-    <p class="upload-label">Upload Your Files</p>
+    <div class="upload-card" [class.drag-over]="dragOver" (drop)="onFileDropped($event)" (dragover)="allowDrop($event)"
+      (dragleave)="clearDragOver()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        class="lucide lucide-cloud-upload-icon lucide-cloud-upload">
+        <path d="M12 13v8" />
+        <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" />
+        <path d="m8 17 4-4 4 4" />
+      </svg>
 
-<div class="upload-icon">
-  <img src="assets/icons/Icon.png" alt="Upload Icon" />
-</div>
 
-    <p class="drag-text">Drag and drop a file here</p>
-    <label class="browse-btn">
-      <input type="file" accept="application/pdf" (change)="onBrowseFile($event)" hidden />
-      Browse
-    </label>
+    <div class="upload-text">
+      <h3 class="upload-label">Upload Your Resume</h3>
+      <p class="drag-text">PDF format recommended (max 5MB)</p>
+    </div>
+
+    <div class="upload-actions">
+      <label class="browse-btn" (click)="fileInput.click()">
+        <input #fileInput type="file" accept="application/pdf" multiple (change)="onBrowseFile($event)" hidden />
+        Browse
+      </label>
+      <p class="or-text">or drag & drop here</p>
+    </div>
   </div>
 </div>
+  <div class="upload-features">
+    <div class="feature-item">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 13L9 17L19 7" stroke="#30d158" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <span>Secure file upload</span>
+    </div>
+    <div class="feature-item">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 13L9 17L19 7" stroke="#30d158" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <span>Fast processing</span>
+    </div>
+    <div class="feature-item">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 13L9 17L19 7" stroke="#30d158" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <span>PDF analysis</span>
+    </div>
+  </div>
+</div>
+

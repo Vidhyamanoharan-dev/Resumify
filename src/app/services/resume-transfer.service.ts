@@ -4,18 +4,31 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ResumeTransferService {
+  private files: File[] = [];
 
-  private file: File | null = null;
+  // ✅ For multiple files
+  setFiles(files: File[]): void {
+    this.files = files;
+  }
 
-  setFile(file: File) {
-    this.file = file;
+  getFiles(): File[] {
+    return this.files;
+  }
+
+  clearFiles(): void {
+    this.files = [];
+  }
+
+  // ✅ Optional: for single file compatibility
+  setFile(file: File): void {
+    this.files = [file];
   }
 
   getFile(): File | null {
-    return this.file;
+    return this.files.length > 0 ? this.files[0] : null;
   }
 
-  clearFile() {
-    this.file = null;
+  clearFile(): void {
+    this.files = [];
   }
 }

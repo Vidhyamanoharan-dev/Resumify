@@ -1,28 +1,77 @@
-<div class="selected-container">
-  <h2>Ready For Upload!</h2>
-
-  <div class="file-box">
-    <img src="assets/images/scanning_doc.gif" alt="Resume Icon" />
-
-    <p class="file-name" *ngIf="fileNames.length === 0">No files selected.</p>
-
-    <ul *ngIf="fileNames.length > 0">
-      <li *ngFor="let file of selectedFiles; let i = index">
-        📄 {{ file.name }} ({{ formatFileSize(file.size) }})
-        <button (click)="removeFile(i)">❌</button>
-      </li>
-    </ul>
-
-    <label class="select-btn">
-      <input type="file" accept="application/pdf" multiple (change)="onSelectNewFiles($event)" hidden />
-      Select files
-    </label>
+<div class="upload-container">
+  <div class="upload-header">
+    <h2 class="upload-title">Ready For Upload!</h2>
+    <p class="upload-subtitle">Get started by uploading your resume</p>
   </div>
 
+  <div class="upload-area" [class.dragging]="isDragging" (drop)="onDrop($event)" (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)" (click)="fileInput.click()">
+
+    <div class="upload-visuals">
+      <div class="upload-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path class="cloud" d="M7 16a5 5 0 01-.9-9.916 5.002 5.002 0 019.803 2.5A4.5 4.5 0 1115.5 16H7z"
+            stroke="#30d158" stroke-width="1.8" stroke-linecap="round" fill="none" />
+          <path class="arrow" d="M12 12v5m0-5l2.5 2.5M12 12l-2.5 2.5" stroke="#30d158" stroke-width="1.8"
+            stroke-linecap="round" />
+        </svg>
+      </div>
+      <div class="scanning-animation"></div>
+    </div>
+
+    <h3 class="upload-instruction">Drag & Drop Your Resume Here</h3>
+
+    <div class="upload-alternate">
+      <p>or</p>
+      <label class="browse-label">
+        <span>browse files</span>
+        <input #fileInput type="file" accept=".pdf" multiple (change)="onSelectNewFiles($event)" hidden />
+      </label>
+      <p class="file-requirements">PDF only (Max 5MB)</p>
+    </div>
+  </div>
   <div class="action-buttons">
-    <button class="back-btn" (click)="goBack()">Back</button>
+    <button class="back-btn" (click)="goBack()">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </svg>
+      Back
+    </button>
     <button class="continue-btn" (click)="continue()" [disabled]="selectedFiles.length === 0">
       Continue
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </svg>
     </button>
   </div>
+  <div class="file-list" *ngIf="fileNames.length > 0">
+    <div class="file-list-header">
+      <span>Selected Files</span>
+      <span class="file-count">{{ fileNames.length }} file{{ fileNames.length > 1 ? 's' : '' }}</span>
+    </div>
+    <div class="file-list-items">
+      <div class="file-item" *ngFor="let file of selectedFiles; let i = index">
+        <div class="file-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="#30d158" stroke-width="1.6"
+              stroke-linecap="round" />
+          </svg>
+        </div>
+        <div class="file-details">
+          <p class="file-name">{{ file.name }}</p>
+          <p class="file-size">{{ formatFileSize(file.size) }}</p>
+        </div>
+        <button class="remove-btn" (click)="removeFile($event, i)" aria-label="Remove file">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 6L6 18M6 6l12 12" stroke="#ff4d4f" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="empty-state" *ngIf="fileNames.length === 0">
+    <p>No files selected yet</p>
+  </div>
+
 </div>

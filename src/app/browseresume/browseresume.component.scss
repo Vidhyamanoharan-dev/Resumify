@@ -1,72 +1,212 @@
+@use "@angular/material" as mat;
+@use "sass:color";
+@use "sass:map";
+@use "sass:string";
+
+// Color variables
+$primary: #30d158;
+$primary-dark: #2ecc71;
+$primary-light: #a0e8af;
+$dark-bg: #0f0f0f;
+$card-bg: #1a1a1a;
+$mint-green: #30d158;
+$accent-green: #2ecc71;
+$medium-gray: #434343;
+$text-gray: #ccc;
+$light-gray: #ddd;
+$transition: all 0.3s ease;
+$divider: rgba(255, 255, 255, 0.12);
+
+// Base styles
 .upload-container {
-  text-align: center;
-  padding: 2rem;
-  background-color: #111;
-  color: #fff;
-  min-height: 100vh;
-
-  h2 {
-    color: #5be584;
-    margin-bottom: 0.5rem;
-  }
-
-  p {
-    color: #080808;
-    margin-bottom: 2rem;
-  }
-}
-
-
-.upload-box {
-  background: rgb(255, 255, 255);
-  border-radius: 1rem;
-  padding: 2rem;
-  width: 320px;
-  margin: 0 auto;
-  border: 2px dashed #5be584;
-  transition: background 0.3s;
-  cursor: pointer;
-
-  &.drag-over {
-    background: #2a2a2a;
-  }
-
-  .upload-label {
-    font-weight: bold;
-    margin-bottom: 1rem;
-  }
-
-.upload-icon {
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
-  margin-bottom: 1rem;
+  min-height: 100vh;
+  padding: 0px 2rem;
+  background-color: $dark-bg;
+  color: white;
+}
 
-  img {
-    width: 50px; // adjust as needed
-    height: 50px;
-    object-fit: contain;
+.upload-content {
+  max-width: 800px;
+  width: 100%;
+  text-align: center;
+}
+
+// Typography
+.upload-title {
+  color: $primary;
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+
+  @media (max-width: 768px) {
+    font-size: 1.75rem;
   }
 }
 
-  .drag-text {
-    color: #5be584;
-    font-weight: 500;
-    margin-bottom: 1rem;
+.upload-subtitle {
+  color: $text-gray;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+}
+
+// Upload card
+.upload-card {
+  background: $card-bg;
+  border-radius: 16px;
+  padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+  border: 2px dashed rgba($primary, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin-bottom: 2rem;
+
+  &:hover {
+    border-color: $primary;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   }
 
-  .browse-btn {
-    display: inline-block;
-    padding: 0.5rem 1.5rem;
-    background: #5be584;
-    color: #000;
-    font-weight: 600;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: background 0.3s;
+  &.drag-over {
+    background: color.adjust($card-bg, $lightness : 5%);
+    border-color: $primary;
+    box-shadow: 0 5px 15px rgba($primary, 0.1);
+  }
 
-    &:hover {
-      background: #47cc6b;
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+  }
+}
+
+// Upload icon
+.upload-icon {
+  margin: 0 auto 1.5rem;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba($primary, 0.1);
+  border-radius: 50%;
+
+  svg {
+    width: 40px;
+    height: 40px;
+  }
+
+  @media (max-width: 768px) {
+    width: 60px;
+    height: 60px;
+
+    svg {
+      width: 30px;
+      height: 30px;
     }
+  }
+}
+
+// Text content
+.upload-text {
+  margin-bottom: 1.5rem;
+}
+
+.upload-label {
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.drag-text {
+  color: $text-gray;
+  font-size: 0.9rem;
+}
+
+// Actions
+.upload-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.browse-btn {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  background: $primary;
+  color: #000;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  min-width: 180px;
+  text-align: center;
+
+  &:hover {
+    background: $primary-dark;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba($primary, 0.2);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.or-text {
+  color: $text-gray;
+  font-size: 0.9rem;
+  position: relative;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 60px;
+    height: 1px;
+    background: rgba($text-gray, 0.3);
+  }
+
+  &::before {
+    left: -70px;
+  }
+
+  &::after {
+    right: -70px;
+  }
+}
+
+// Features
+.upload-features {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+
+  @media (max-width: 600px) {
+    gap: 1.5rem;
+    justify-content: space-around;
+  }
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: $text-gray;
+  font-size: 0.9rem;
+
+  svg {
+    width: 16px;
+    height: 16px;
   }
 }

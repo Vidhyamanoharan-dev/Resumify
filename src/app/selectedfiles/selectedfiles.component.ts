@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { UploadService } from '../services/upload.service';
 import { ResumeTransferService } from '../services/resume-transfer.service';
 import { LoadingService } from '../services/LoadingService';
+
 
 @Component({
   selector: 'app-selected-files',
@@ -14,6 +15,7 @@ import { LoadingService } from '../services/LoadingService';
 })
 export class SelectedFilesComponent {
   selectedFiles: File[] = [];
+  isDragging = false;
 
   constructor(
     private router: Router,
@@ -21,11 +23,13 @@ export class SelectedFilesComponent {
     private resumeTransferService: ResumeTransferService,
     private loadingService: LoadingService
   ) {
-    const file = this.resumeTransferService.getFile();
-    if (file) {
-      this.selectedFiles = [file];
+    const files = this.resumeTransferService.getFiles();
+    if (files && files.length > 0) {
+      this.selectedFiles = files;
     }
+
   }
+
 
   get fileNames(): string[] {
     return this.selectedFiles.map(file => file.name);
@@ -34,16 +38,55 @@ export class SelectedFilesComponent {
   onSelectNewFiles(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files) {
-      const newFiles = Array.from(input.files).filter(file => file.type === 'application/pdf');
-      const totalFiles = this.selectedFiles.length + newFiles.length;
-      this.selectedFiles.push(...newFiles);
+      this.addFiles(Array.from(input.files));
     }
   }
 
+  // 🔁 Reusable method for both drag/drop and browse
+  addFiles(files: File[]): void {
+    const supportedTypes = ['application/pdf'];
+    const newFiles = files.filter(file =>
+      supportedTypes.includes(file.type) &&
+      !this.selectedFiles.some(f => f.name === file.name && f.size === file.size)
+    );
 
-  removeFile(index: number): void {
+    if (newFiles.length < files.length) {
+      alert('Only PDF files are allowed, or some were already added.');
+    }
+
+    this.selectedFiles.push(...newFiles);
+  }
+  // 🖱️ Click Listener for file input
+
+
+  // 🖱️ Drag/Drop Listeners
+  @HostListener('dragover', ['$event'])
+  onDragOver(event: DragEvent): void {
+    event.preventDefault();
+    this.isDragging = true;
+  }
+
+  @HostListener('dragleave', ['$event'])
+  onDragLeave(event: DragEvent): void {
+    event.preventDefault();
+    this.isDragging = false;
+  }
+
+  @HostListener('drop', ['$event'])
+  onDrop(event: DragEvent): void {
+    event.preventDefault();
+    this.isDragging = false;
+
+    if (event.dataTransfer && event.dataTransfer.files.length > 0) {
+      this.addFiles(Array.from(event.dataTransfer.files));
+    }
+  }
+
+  removeFile(event: Event, index: number): void {
+    event.stopPropagation(); // optional, to prevent click bubbling
     this.selectedFiles.splice(index, 1);
   }
+
 
   formatFileSize(bytes: number): string {
     if (bytes < 1024) return `${bytes} B`;
@@ -52,7 +95,7 @@ export class SelectedFilesComponent {
   }
 
   goBack(): void {
-    this.router.navigate(['/']);
+    this.router.navigate(['/up']);
   }
 
   continue(): void {
@@ -71,7 +114,7 @@ export class SelectedFilesComponent {
     const formData = new FormData();
 
     this.selectedFiles.forEach(file => {
-      formData.append('file', file); // Must match backend @RequestParam("files")
+      formData.append('file', file); // Match backend param
     });
 
     this.loadingService.setLoading(true);
