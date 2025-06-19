@@ -2,12 +2,14 @@ import { Component, ElementRef, OnInit, ViewChild, OnDestroy } from '@angular/co
 import { NgIf, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UploadService } from '../services/upload.service';
+import { Router } from '@angular/router';
 
 interface Resume {
   id: number;
   name: string;
   email: string;
   phone: string;
+  jobPosition:string;
   skills: string[];
   totalExperienceYears: number;
   imageUrl?: string;  // for resume preview image URL
@@ -35,9 +37,10 @@ export class ParsedresumeComponent implements OnInit, OnDestroy {
   filteredSkillOptions: string[] = [];
   selectedSkills: string[] = [];
 
+
   isDeleting: boolean = false;  // To prevent double delete clicks
 
-  constructor(private uploadService: UploadService) { }
+  constructor(private uploadService: UploadService, private router: Router) { }
 
   ngOnInit(): void {
     this.fetchResumes();
@@ -52,42 +55,46 @@ export class ParsedresumeComponent implements OnInit, OnDestroy {
     });
   }
 
-  fetchResumes(): void {
-    const userIdStr = localStorage.getItem('userId');
-    if (!userIdStr) return;
+ fetchResumes(): void {
+  const userIdStr = localStorage.getItem('userId');
+  if (!userIdStr) return;
 
-    const userId = parseInt(userIdStr, 10);
-    this.uploadService.getUserResumes(userId).subscribe({
-      next: (resumes: any[] | null) => {
-        if (!resumes || !Array.isArray(resumes)) {
-          this.resumes = [];
-          console.log(resumes);
-          return;
-        }
+  const userId = parseInt(userIdStr, 10);
+  this.uploadService.getUserResumes(userId).subscribe({
+    next: (resumes: any[] | null) => {
+      console.log("Raw response from backend:", resumes);
 
-        this.resumes = resumes.map(r => ({
-          id: r.id,
-          name: r.name,
-          email: r.email,
-          phone: r.phone,
-          totalExperienceYears: r.totalExperienceYears,
-          skills: typeof r.skills === 'string'
-            ? r.skills.split(',').map((s: string) => s.trim().toLowerCase())
-            : r.skills ?? [],
-          imageUrl: undefined
-        }));
-
-        const allSkills = this.resumes.flatMap(r => r.skills);
-        this.allSkills = Array.from(new Set(allSkills));
-
-        // Load images for each resume
-        this.resumes.forEach(r => this.loadResumeImage(r.id));
-      },
-      error: (err) => {
-        console.error('Failed to fetch resumes', err);
+      if (!resumes || !Array.isArray(resumes)) {
+        this.resumes = [];
+        return;
       }
-    });
-  }
+
+      this.resumes = resumes.map(r => ({
+        id: r.id,
+        name: r.name,
+        email: r.email,
+        phone: r.phone,
+        jobPosition: r.jobPosition,
+        totalExperienceYears: r.totalExperienceYears,
+        skills: typeof r.skills === 'string'
+          ? r.skills.split(',').map((s: string) => s.trim().toLowerCase())
+          : r.skills ?? [],
+        imageUrl: undefined
+      }));
+
+      console.log("Mapped resumes for frontend:", this.resumes);
+
+
+      const allSkills = this.resumes.flatMap(r => r.skills);
+      this.allSkills = Array.from(new Set(allSkills));
+
+      this.resumes.forEach(r => this.loadResumeImage(r.id));
+    },
+    error: (err) => {
+      console.error('Failed to fetch resumes', err);
+    }
+  });
+}
 
   loadResumeImage(resumeId: number): void {
     this.uploadService.getResumeImage(resumeId).subscribe({
@@ -180,6 +187,7 @@ export class ParsedresumeComponent implements OnInit, OnDestroy {
             name: r.name,
             email: r.email,
             phone: r.phone,
+            jobPosition:r.jobPosition,
             totalExperienceYears: r.totalExperienceYears,
             skills: typeof r.skills === 'string'
               ? r.skills.split(',').map((s: string) => s.trim().toLowerCase())
@@ -216,6 +224,7 @@ export class ParsedresumeComponent implements OnInit, OnDestroy {
           name: r.name,
           email: r.email,
           phone: r.phone,
+          jobPosition:r.jobPosition,
           totalExperienceYears: r.totalExperienceYears,
           skills: typeof r.skills === 'string'
             ? r.skills.split(',').map((s: string) => s.trim().toLowerCase())
@@ -303,6 +312,10 @@ export class ParsedresumeComponent implements OnInit, OnDestroy {
     });
   }
 
+  goToResumeDetail(id: number): void {
+  this.router.navigate(['/resume-preview',id]);
+}
+
   clearFilters(): void {
     this.searchText = '';
     this.selectedSkills = [];
@@ -315,21 +328,22 @@ export class ParsedresumeComponent implements OnInit, OnDestroy {
   }
 
   onFileSelected(event: Event): void {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    if (!file) return;
+  const files = (event.target as HTMLInputElement).files;
+  if (!files || files.length === 0) return;
 
+  const userIdStr = localStorage.getItem('userId');
+  if (!userIdStr) {
+    alert('User not logged in.');
+    return;
+  }
+
+  const userId = parseInt(userIdStr, 10);
+
+  Array.from(files).forEach((file) => {
     if (file.type !== 'application/pdf') {
-      alert('Please upload a PDF file.');
+      console.warn(`${file.name} is not a PDF, skipping.`);
       return;
     }
-
-    const userIdStr = localStorage.getItem('userId');
-    if (!userIdStr) {
-      alert('User not logged in.');
-      return;
-    }
-
-    const userId = parseInt(userIdStr, 10);
 
     const formData = new FormData();
     formData.append('file', file);
@@ -337,19 +351,18 @@ export class ParsedresumeComponent implements OnInit, OnDestroy {
 
     this.uploadService.uploadResume(userId, formData).subscribe({
       next: () => {
-        console.log('Resume uploaded successfully');
+        console.log(`Resume ${file.name} uploaded successfully`);
         this.fetchResumes();
       },
       error: (error) => {
-        console.error('Upload failed:', error);
-        alert('Failed to upload resume.');
+        console.error(`Upload failed for ${file.name}:`, error);
+        alert(`Failed to upload ${file.name}.`);
       }
     });
-  }
+  });
+
 }
-
-
-
+}
 
 
 
