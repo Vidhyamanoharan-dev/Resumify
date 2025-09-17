@@ -12,7 +12,6 @@ import { ResumeTransferService } from '../services/resume-transfer.service';
   styleUrls: ['./browseresume.component.scss']
 })
 export class BrowseResumeComponent {
-  selectedFile: File | null = null;
   selectedFiles: File[] = [];
   dragOver = false;
   isDragging = false;
@@ -22,44 +21,44 @@ export class BrowseResumeComponent {
     private resumeTransferService: ResumeTransferService
   ) { }
 
+  // ✅ Drag-and-drop handler
   onFileDropped(event: DragEvent) {
     event.preventDefault();
     this.dragOver = false;
-
     const files = event.dataTransfer?.files;
-    if (!files || files.length === 0) return;
+    if (files) this.handleFiles(files);
+  }
 
-    const pdfFiles = Array.from(files).filter(f => f.type === 'application/pdf');
+  // ✅ Input selection handler
+  onBrowseFile(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files) this.handleFiles(input.files);
+  }
+
+  // ✅ Main file processor
+  private handleFiles(fileList: FileList) {
+    const maxSize = 5 * 1024 * 1024; // 5MB
+    const pdfFiles = Array.from(fileList).filter(
+      file => file.type === 'application/pdf' && file.size <= maxSize
+    );
+
+    if (pdfFiles.length === 0) {
+      alert('Only PDF files under 5MB are allowed.');
+      return;
+    }
+
+    this.selectedFiles = pdfFiles;
 
     if (pdfFiles.length === 1) {
-      this.selectedFile = pdfFiles[0];
-      this.resumeTransferService.setFile(this.selectedFile);
+      this.resumeTransferService.setFile(pdfFiles[0]);
       this.router.navigate(['/selectedfiles'], {
-        state: { fileName: this.selectedFile.name }
+        state: { fileName: pdfFiles[0].name }
       });
-    } else if (pdfFiles.length > 1) {
-      this.selectedFiles = pdfFiles;
+    } else {
       this.resumeTransferService.setFiles(pdfFiles);
       this.router.navigate(['/selectedfiles'], {
         state: { fileNames: pdfFiles.map(f => f.name) }
       });
-    } else {
-      alert('Only PDF files are allowed.');
-    }
-  }
-
-  onBrowseFile(event: Event) {
-    const input = event.target as HTMLInputElement;
-    const file = input.files?.[0];
-    if (file && file.type === 'application/pdf') {
-      this.selectedFile = file;
-      this.resumeTransferService.setFile(file);
-      console.log(file);
-      this.router.navigate(['/selectedfiles'], {
-        state: { fileName: file.name, data: file }
-      });
-    } else {
-      alert('Please select a valid PDF file.');
     }
   }
 
@@ -72,7 +71,7 @@ export class BrowseResumeComponent {
     this.dragOver = false;
   }
 
-  // 🖱️ HostListeners
+  // 👇 Optional drag-and-drop UI feedback
   @HostListener('dragover', ['$event'])
   onDragOver(event: DragEvent): void {
     event.preventDefault();
@@ -90,19 +89,5 @@ export class BrowseResumeComponent {
     event.preventDefault();
     this.isDragging = false;
     this.onFileDropped(event);
-  }
-
-  // Optional utility if needed for batch uploads
-  addFiles(files: File[]) {
-    const pdfFiles = files.filter(file => file.type === 'application/pdf');
-    if (pdfFiles.length > 0) {
-      this.selectedFiles = pdfFiles;
-      this.resumeTransferService.setFiles(pdfFiles);
-      this.router.navigate(['/selectedfiles'], {
-        state: { fileNames: pdfFiles.map(f => f.name) }
-      });
-    } else {
-      alert('Only PDF files are allowed.');
-    }
   }
 }

@@ -1,52 +1,73 @@
 <div class="upload-container">
   <div class="upload-content">
-    <h2 class="upload-title">How do you want to upload your resume?</h2>
-    <p class="upload-subtitle">Drag & drop or select your resume file</p>
+    <div class="upload-header">
+      <h2 class="upload-title">Upload Your Resume</h2>
+      <p class="upload-subtitle">Get started with your career journey</p>
+    </div>
 
     <div class="upload-card" [class.drag-over]="dragOver" (drop)="onFileDropped($event)" (dragover)="allowDrop($event)"
       (dragleave)="clearDragOver()">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-        class="lucide lucide-cloud-upload-icon lucide-cloud-upload">
-        <path d="M12 13v8" />
-        <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" />
-        <path d="m8 17 4-4 4 4" />
-      </svg>
-
-
-    <div class="upload-text">
-      <h3 class="upload-label">Upload Your Resume</h3>
-      <p class="drag-text">PDF format recommended (max 5MB)</p>
+      <div class="upload-icon-container">
+        <svg class="upload-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 15V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V15" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M17 8L12 3L7 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" />
+          <path d="M12 3V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <div class="upload-hint">Drop your resume here</div>
+      </div>
     </div>
 
-    <div class="upload-actions">
-      <label class="browse-btn" (click)="fileInput.click()">
-        <input #fileInput type="file" accept="application/pdf" multiple (change)="onBrowseFile($event)" hidden />
-        Browse
-      </label>
-      <p class="or-text">or drag & drop here</p>
+    <div class="upload-details">
+      <p class="file-requirements">PDF format recommended (max 5MB)</p>
+
+      <div class="upload-actions">
+        <label class="browse-btn">
+          <input type="file" accept="application/pdf" multiple (change)="onBrowseFile($event)" hidden />
+          <span>Browse Files</span>
+        </label>
+        <div class="divider">or</div>
+      </div>
+    </div>
+
+    <div class="upload-features">
+      <div class="feature-item">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+              stroke="#30d158" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M8 12L11 15L16 9" stroke="#30d158" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </div>
+        <span>Secure & Private</span>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+              stroke="#30d158" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M8 12L11 15L16 9" stroke="#30d158" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </div>
+        <span>Instant Analysis</span>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+              stroke="#30d158" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M8 12L11 15L16 9" stroke="#30d158" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </div>
+        <span>PDF Optimization</span>
+      </div>
     </div>
   </div>
 </div>
-  <div class="upload-features">
-    <div class="feature-item">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M5 13L9 17L19 7" stroke="#30d158" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-      </svg>
-      <span>Secure file upload</span>
-    </div>
-    <div class="feature-item">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M5 13L9 17L19 7" stroke="#30d158" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-      </svg>
-      <span>Fast processing</span>
-    </div>
-    <div class="feature-item">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M5 13L9 17L19 7" stroke="#30d158" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-      </svg>
-      <span>PDF analysis</span>
-    </div>
-  </div>
-</div>
-

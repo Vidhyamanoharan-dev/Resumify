@@ -1,59 +1,108 @@
-@use "@angular/material" as mat;
-@use "sass:color";
-@use "sass:map";
-@use "sass:string";
+@use 'sass:color'; // ✅ Import Sass color module
 
 // Color variables
 $primary: #30d158;
-$primary-dark: #2ecc71;
-$primary-light: #a0e8af;
+$primary-dark: color.adjust($primary, $lightness: 10%);
+$primary-light: color.adjust($primary, $lightness: 35%);
+
 $dark-bg: #0f0f0f;
 $card-bg: #1a1a1a;
-$mint-green: #30d158;
-$accent-green: #2ecc71;
-$medium-gray: #434343;
-$text-gray: #ccc;
-$light-gray: #ddd;
-$transition: all 0.3s ease;
-$divider: rgba(255, 255, 255, 0.12);
+$text-primary: #ffffff;
+$text-secondary: rgba(255, 255, 255, 0.7);
+$border-color: rgba(255, 255, 255, 0.1);
+$divider-color: rgba(255, 255, 255, 0.2);
+$feature-icon-bg: rgba(48, 209, 88, 0.1);
+
+// Spacing variables
+$spacing-xs: 0.5rem;
+$spacing-sm: 1rem;
+$spacing-md: 1.5rem;
+$spacing-lg: 2rem;
+$spacing-xl: 3rem;
+
+// Breakpoints
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+
+// Mixins
+@mixin transition($property: all, $duration: 0.3s, $easing: ease) {
+  transition: $property $duration $easing;
+}
+
+@mixin box-shadow($level: 1) {
+  @if $level == 1 {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  } @else if $level == 2 {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  } @else if $level == 3 {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+}
+
+// Put this in styles.scss or a separate _mixins.scss
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 // Base styles
 .upload-container {
   display: flex;
   justify-content: center;
-  flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  padding: 0px 2rem;
+  padding: $spacing-xl;
   background-color: $dark-bg;
-  color: white;
+  color: $text-primary;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+
+  @media (max-width: $breakpoint-md) {
+    padding: $spacing-lg;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    padding: $spacing-md;
+  }
 }
 
 .upload-content {
-  max-width: 800px;
+  max-width: 600px;
   width: 100%;
   text-align: center;
 }
 
-// Typography
-.upload-title {
-  color: $primary;
-  font-size: 2rem;
-  margin-bottom: 0.75rem;
-  font-weight: 600;
-  line-height: 1.2;
+.upload-header {
+  margin-bottom: $spacing-lg;
+}
 
-  @media (max-width: 768px) {
+.upload-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: $spacing-xs;
+  line-height: 1.2;
+  background: linear-gradient(90deg, $primary, color.adjust($primary, $lightness : 15%));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  @media (max-width: $breakpoint-md) {
     font-size: 1.75rem;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    font-size: 1.5rem;
   }
 }
 
 .upload-subtitle {
-  color: $text-gray;
+  color: $text-secondary;
   font-size: 1.1rem;
-  margin-bottom: 2rem;
+  margin: 0;
 
-  @media (max-width: 768px) {
+  @media (max-width: $breakpoint-sm) {
     font-size: 1rem;
   }
 }
@@ -62,151 +111,227 @@ $divider: rgba(255, 255, 255, 0.12);
 .upload-card {
   background: $card-bg;
   border-radius: 16px;
-  padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+  padding: $spacing-xl;
   border: 2px dashed rgba($primary, 0.3);
-  transition: all 0.3s ease;
+  @include transition();
   cursor: pointer;
-  margin-bottom: 2rem;
+  margin-bottom: $spacing-lg;
+  position: relative;
+  overflow: hidden;
+  @include box-shadow(1);
 
   &:hover {
     border-color: $primary;
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    @include box-shadow(2);
   }
 
   &.drag-over {
-    background: color.adjust($card-bg, $lightness : 5%);
+    background: color.adjust($card-bg,$lightness :  3%);
     border-color: $primary;
-    box-shadow: 0 5px 15px rgba($primary, 0.1);
-  }
+    @include box-shadow(2);
 
-  @media (max-width: 768px) {
-    padding: 1.5rem;
-  }
-}
+    .upload-icon {
+      transform: translateY(-5px);
+    }
 
-// Upload icon
-.upload-icon {
-  margin: 0 auto 1.5rem;
-  width: 80px;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba($primary, 0.1);
-  border-radius: 50%;
-
-  svg {
-    width: 40px;
-    height: 40px;
-  }
-
-  @media (max-width: 768px) {
-    width: 60px;
-    height: 60px;
-
-    svg {
-      width: 30px;
-      height: 30px;
+    .upload-hint {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
+
+  @media (max-width: $breakpoint-md) {
+    padding: $spacing-lg;
+  }
 }
 
-// Text content
-.upload-text {
-  margin-bottom: 1.5rem;
-}
-
-.upload-label {
-  color: white;
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-.drag-text {
-  color: $text-gray;
-  font-size: 0.9rem;
-}
-
-// Actions
-.upload-actions {
+.upload-icon-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: $spacing-md;
+}
+
+.upload-icon {
+  width: 64px;
+  height: 64px;
+  color: $primary;
+  @include transition();
+
+  @media (max-width: $breakpoint-sm) {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+.upload-hint {
+  color: $primary;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(10px);
+  @include transition();
+}
+
+// Upload details
+.upload-details {
+  margin-bottom: $spacing-xl;
+}
+
+.file-requirements {
+  color: $text-secondary;
+  font-size: 0.9rem;
+  margin-bottom: $spacing-lg;
+}
+
+.upload-actions {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  align-items: center;
 }
 
 .browse-btn {
-  display: inline-block;
-  padding: 0.75rem 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-sm $spacing-lg;
   background: $primary;
   color: #000;
   font-weight: 600;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 1rem;
-  min-width: 180px;
-  text-align: center;
+  @include transition();
+  @include box-shadow(1);
+  width: 100%;
+  max-width: 240px;
+  border: none;
+
+  span {
+    position: relative;
+    z-index: 2;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, $primary, $primary-dark);
+    opacity: 0;
+    border-radius: 8px;
+    @include transition();
+    z-index: 1;
+  }
 
   &:hover {
-    background: $primary-dark;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba($primary, 0.2);
+    transform: translateY(-2px);
+    @include box-shadow(2);
+
+    &::before {
+      opacity: 1;
+    }
   }
 
   &:active {
     transform: translateY(0);
+    @include box-shadow(1);
   }
 }
 
-.or-text {
-  color: $text-gray;
+.sample-btn {
+  background: transparent;
+  color: $text-secondary;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  @include transition();
+  padding: $spacing-xs;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba($primary, 0.3);
+
+  &:hover {
+    color: $primary;
+    text-decoration-color: $primary;
+  }
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  color: $text-secondary;
   font-size: 0.9rem;
-  position: relative;
+  margin: $spacing-sm 0;
 
   &::before,
   &::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    width: 60px;
+    content: '';
+    flex: 1;
     height: 1px;
-    background: rgba($text-gray, 0.3);
-  }
-
-  &::before {
-    left: -70px;
-  }
-
-  &::after {
-    right: -70px;
+    background: $divider-color;
+    margin: 0 $spacing-sm;
   }
 }
 
 // Features
 .upload-features {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $spacing-md;
+  margin-top: $spacing-xl;
 
-  @media (max-width: 600px) {
-    gap: 1.5rem;
-    justify-content: space-around;
+  @media (max-width: $breakpoint-sm) {
+    grid-template-columns: 1fr;
+    gap: $spacing-sm;
   }
 }
 
 .feature-item {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  color: $text-gray;
+  gap: $spacing-sm;
+  color: $text-secondary;
   font-size: 0.9rem;
+  padding: $spacing-sm;
+  border-radius: 8px;
+  @include transition();
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+
+    .feature-icon {
+      background: rgba($primary, 0.2);
+    }
+  }
+}
+
+.feature-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: $feature-icon-bg;
+  @include flex-center();
+  @include transition();
 
   svg {
     width: 16px;
     height: 16px;
   }
+}
+
+// Animations
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.upload-card:hover .upload-icon {
+  animation: float 2s ease-in-out infinite;
 }
